@@ -3,8 +3,8 @@ import { portfolioData } from '../data/portfolioData';
 
 interface ProjectCardProps {
   title: string;
-  description: string;
-  tags: string[];
+  description?: string;
+  tags?: string[];
   index: number;
   image?: string;
   link?: string;
@@ -20,33 +20,19 @@ const ProjectCard = ({ title, description, tags, index, image, link }: ProjectCa
     whileHover={{ y: -10, transition: { duration: 0.2 } }}
     style={{ padding: '0', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
   >
-    <div style={{ 
-      width: '100%', 
-      aspectRatio: '16/10', 
-      background: 'var(--card-bg)', 
-      position: 'relative', 
-      overflow: 'hidden',
-      padding: '1.2rem',
-    }}>
+    <div className="project-image-container small">
       {image ? (
         <a 
           href={link} 
           target="_blank" 
           rel="noopener noreferrer" 
-          style={{ width: '100%', height: '100%', cursor: link ? 'pointer' : 'default' }}
+          className="project-image-link"
+          style={{ cursor: link ? 'pointer' : 'default' }}
         >
           <img 
             src={image} 
             alt={title} 
-            style={{ 
-              width: '100%', 
-              height: '100%', 
-              objectFit: 'cover', 
-              borderRadius: '12px',
-              border: '1px solid var(--glass-border)',
-              opacity: 'var(--image-opacity, 0.9)',
-              boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
-            }} 
+            className="project-image"
           />
         </a>
       ) : (
@@ -67,7 +53,7 @@ const ProjectCard = ({ title, description, tags, index, image, link }: ProjectCa
       <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary)' }}>{title}</h3>
       <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.6, flexGrow: 1 }}>{description}</p>
       <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
-        {tags.map(tag => (
+        {tags?.map(tag => (
           <span key={tag} style={{ fontSize: '0.75rem', color: 'var(--accent-secondary)' }}>#{tag}</span>
         ))}
       </div>
