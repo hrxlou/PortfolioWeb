@@ -175,6 +175,7 @@ section h2 {
   .container {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    justify-content: center !important;
   }
   section h2 {
     margin-bottom: 2.5rem;
@@ -288,7 +289,6 @@ section h2 {
   .nav-menu {
     gap: 0.8rem !important;
     padding: 0.4rem 1rem !important;
-    margin-left: auto;
     width: auto;
   }
 
