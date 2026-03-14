@@ -26,7 +26,7 @@ const Hero = ({ navKey }: { navKey: number }) => {
         <motion.p 
           key={`tagline-${navKey}`}
           className="gradient-text" 
-          style={{ fontWeight: 600, letterSpacing: '0.05em', marginBottom: '0.8rem', fontSize: '1.1rem' }}
+          style={{ fontWeight: 600, letterSpacing: '0.05em', marginBottom: '0.2rem', fontSize: '1.1rem' }}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
