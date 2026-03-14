@@ -21,6 +21,39 @@ html {
   --nav-padding: 1.2rem;
 }
 
+nav {
+  transition: all 0.3s ease;
+}
+
+.nav-menu {
+  gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* PC 스타일: 스크롤 시 전체 바가 반투명해짐 */
+@media (min-width: 769px) {
+  .nav-scrolled {
+    --nav-padding: 0.7rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  /* PC에서 스크롤 시 알약 모양은 배경에 녹아들게 함 */
+  .nav-scrolled .nav-menu {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+  }
+}
+
 .nav-scrolled {
   --nav-padding: 0.7rem;
 }
@@ -290,6 +323,18 @@ section h2 {
     gap: 0.8rem !important;
     padding: 0.4rem 1rem !important;
     width: auto;
+    /* 모바일에서는 스크롤 시에도 둥근 알약 스타일 유지 */
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 100px; /* 더 둥글게 */
+  }
+
+  .nav-scrolled {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: none !important;
   }
 
   .nav-link {
