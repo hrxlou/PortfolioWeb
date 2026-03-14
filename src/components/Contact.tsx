@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Mail, Send } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
-const Contact = () => {
+const Contact = ({ navKey }: { navKey: number }) => {
   const { email } = portfolioData.personal;
   const { message, emailLabel } = portfolioData.contact;
 
@@ -17,6 +17,7 @@ const Contact = () => {
   return (
     <section id="contact" className="container">
       <motion.div
+        key={navKey}
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}

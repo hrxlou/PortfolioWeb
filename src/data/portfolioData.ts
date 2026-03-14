@@ -22,11 +22,17 @@ interface Project {
   link: string;
 }
 
+interface Skill {
+  category: string;
+  items: string[];
+}
+
 interface PortfolioData {
   personal: Personal;
   social: Social[];
   featuredProjects: Project[];
   projects: Project[];
+  skills: Skill[];
   contact: {
     message: string;
     emailLabel: string;
@@ -53,7 +59,7 @@ export const portfolioData: PortfolioData = {
       problem: "가족들이 단순한 채팅방 이상으로 서로의 일상과 계획, 미래에 대해 기록할 수 있는 웹 소통 공간을 만들고자 했습니다.",
       solution: "React와 Next.js 환경에서 실시간 게시판, 사진첩, 가족 캘린더 기능을 통합하여 가족만의 전용 플랫폼을 구축했습니다.",
       techStack: ["React", "TypeScript", "Next.js", "Firebase"],
-      link: "https://github.com/hrxlou/familyWebsite", // 예시 링크
+      link: "https://github.com/hrxlou/familyWebsite",
     }
   ],
   projects: [
@@ -62,10 +68,19 @@ export const portfolioData: PortfolioData = {
       image: "/mywork1.png",
       description: "열심히 살게요 😅",
       tags: ["인생_어렵다"],
-      link: "#", // 예시 링크
+      link: "#",
     },
   ],
-
+  skills: [
+    {
+      category: "Frontend",
+      items: ["내가 뭘 할줄알지..."]
+    },
+    {
+      category: "Learning",
+      items: ["Algorithm", "General CS", "Mobile App Dev"]
+    }
+  ],
   contact: {
     message: "함께 일하고 싶은 프로젝트가 있거나 궁금한 점이 있다면 언제든 연락주세요.",
     emailLabel: "Email me at",

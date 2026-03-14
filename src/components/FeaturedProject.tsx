@@ -2,12 +2,13 @@ import ProjectImage from './ProjectImage';
 import { motion } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
 
-const FeaturedProject = () => {
+const FeaturedProject = ({ navKey }: { navKey: number }) => {
   const { featuredProjects } = portfolioData;
 
   return (
     <section id="featured" className="container">
       <motion.div
+        key={navKey}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}

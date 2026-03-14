@@ -57,12 +57,13 @@ const ProjectCard = ({ title, description, tags, index, image, link }: ProjectCa
 );
 
 
-const PortfolioGrid = () => {
+const PortfolioGrid = ({ navKey }: { navKey: number }) => {
   const { projects } = portfolioData;
 
   return (
     <section id="portfolio" className="container">
       <motion.div
+        key={navKey}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}

@@ -3,6 +3,8 @@ import Hero from './components/Hero';
 import FeaturedProject from './components/FeaturedProject';
 import PortfolioGrid from './components/PortfolioGrid';
 import Contact from './components/Contact';
+import Navbar from './components/Navbar';
+import Skills from './components/Skills';
 import ThemeToggle from './components/ThemeToggle';
 
 function App() {
@@ -18,13 +20,17 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
+  const [navKey, setNavKey] = useState(0);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
+  const handleNavClick = () => setNavKey(prev => prev + 1);
+
   return (
     <main style={{ backgroundColor: 'var(--bg-color)', minHeight: '100vh', transition: 'background-color 0.3s ease' }}>
+      <Navbar onNavClick={handleNavClick} />
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       
       {/* Background decoration */}
@@ -54,10 +60,13 @@ function App() {
       }} />
 
       <div style={{ position: 'relative', zIndex: 1 }}>
-        <Hero />
-        <FeaturedProject />
-        <PortfolioGrid />
-        <Contact />
+        <Hero navKey={navKey} />
+        <div id="featured">
+           <FeaturedProject navKey={navKey} />
+        </div>
+        <Skills navKey={navKey} />
+        <PortfolioGrid navKey={navKey} />
+        <Contact navKey={navKey} />
       </div>
 
       <footer className="container" style={{ padding: '4rem 0', textAlign: 'center', borderTop: '1px solid var(--glass-border)' }}>
