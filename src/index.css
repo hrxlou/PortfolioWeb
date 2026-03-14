@@ -97,13 +97,14 @@ nav {
 
 .nav-menu {
   gap: 1.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--glass-bg) !important; /* 변수 사용 및 우선순위 확보 */
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid var(--glass-border);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   padding: 0.4rem 1.25rem;
   display: flex;
+  border-radius: 100px; /* 알약 모양 유지 */
 }
 
 .nav-link {
