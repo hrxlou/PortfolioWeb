@@ -85,7 +85,7 @@ export const portfolioData: PortfolioData = {
     },
     {
       category: "Learning",
-      items: ["Algorithm", "General CS", "Mobile App Dev"]
+      items: ["Algorithm", "General CS", "Mobile App Dev", "DataBase"]
     }
   ],
   contact: {
