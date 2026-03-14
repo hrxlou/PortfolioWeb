@@ -23,22 +23,23 @@ const ProjectCard = ({ title, description, tags, index, image, link }: ProjectCa
   >
     <div className="project-image-container small">
       {image ? (
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="project-image-link"
-          style={{ cursor: link ? 'pointer' : 'default' }}
-        >
+        <div className="project-image-link">
           <img
             src={image}
             alt={title}
             className="project-image"
+            style={{ cursor: 'default' }}
           />
-          <div className="project-link-icon">
+          <a 
+            href={link} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="project-link-icon"
+            title="Visit Project"
+          >
             <ExternalLink size={16} />
-          </div>
-        </a>
+          </a>
+        </div>
       ) : (
         <div style={{
           width: '100%',

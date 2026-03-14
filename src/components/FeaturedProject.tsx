@@ -45,24 +45,25 @@ const FeaturedProject = () => {
               
               <div className="project-image-container">
                 {project.image ? (
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="project-image-link"
-                    style={{ cursor: project.link ? 'pointer' : 'default' }}
-                  >
+                  <div className="project-image-link">
                     <motion.img 
                       whileHover={{ scale: 1.02 }}
                       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                       src={project.image} 
                       alt={project.title} 
                       className="project-image"
+                      style={{ cursor: 'default' }}
                     />
-                    <div className="project-link-icon">
+                    <a 
+                      href={project.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="project-link-icon"
+                      title="Visit Project"
+                    >
                       <ExternalLink size={18} />
-                    </div>
-                  </a>
+                    </a>
+                  </div>
                 ) : (
                   <div style={{ width: '100%', height: '100%', background: 'var(--glass-bg)', borderRadius: '12px', border: '1px dashed var(--glass-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
                     Project Preview
