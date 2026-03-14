@@ -23,15 +23,18 @@ const Navbar = ({ onNavClick }: NavbarProps) => {
   ];
 
   return (
-    <nav style={{ 
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, 
-      padding: scrolled ? '0.8rem 0' : '1.5rem 0',
-      background: scrolled ? 'var(--glass-bg)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(12px)' : 'none',
-      WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
-      borderBottom: scrolled ? '1px solid var(--glass-border)' : '1px solid transparent',
-      transition: 'all 0.3s ease'
-    }}>
+    <nav 
+      className={scrolled ? 'nav-scrolled' : ''}
+      style={{ 
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, 
+        padding: 'var(--nav-padding) 0',
+        background: scrolled ? 'var(--glass-bg)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: scrolled ? '1px solid var(--glass-border)' : '1px solid transparent',
+        transition: 'all 0.3s ease'
+      }}
+    >
       <div className="container" style={{ 
         display: 'flex',
         justifyContent: 'space-between',

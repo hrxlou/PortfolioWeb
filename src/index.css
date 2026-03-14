@@ -18,6 +18,11 @@ html {
   --image-opacity: 0.9;
   
   --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --nav-padding: 1.2rem;
+}
+
+.nav-scrolled {
+  --nav-padding: 0.7rem;
 }
 
 [data-theme='light'] {
@@ -173,6 +178,9 @@ section h2 {
   }
   section h2 {
     margin-bottom: 2.5rem;
+  }
+  :root {
+    --nav-padding: 0.7rem !important;
   }
 }/* Project Card Styles */
 .project-card-grid {
