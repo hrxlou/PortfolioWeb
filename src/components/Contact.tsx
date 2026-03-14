@@ -41,44 +41,44 @@ const Contact = () => {
               </div>
             </div>
           </div>
-          
+
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            <input 
+            <input
               name="name"
-              type="text" 
-              placeholder="Your Name" 
+              type="text"
+              placeholder="Your Name"
               required
-              style={{ 
-                background: 'var(--glass-bg)', 
-                border: '1px solid var(--glass-border)', 
-                padding: '1.25rem', 
-                borderRadius: '12px', 
+              style={{
+                background: 'var(--glass-bg)',
+                border: '1px solid var(--glass-border)',
+                padding: '1.25rem',
+                borderRadius: '12px',
                 color: 'var(--text-primary)',
                 outline: 'none',
                 width: '100%'
-              }} 
+              }}
             />
-            <textarea 
+            <textarea
               name="message"
-              placeholder="Your Message" 
+              placeholder="Your Message"
               rows={5}
               required
-              style={{ 
-                background: 'var(--glass-bg)', 
-                border: '1px solid var(--glass-border)', 
-                padding: '1.25rem', 
-                borderRadius: '12px', 
+              style={{
+                background: 'var(--glass-bg)',
+                border: '1px solid var(--glass-border)',
+                padding: '1.25rem',
+                borderRadius: '12px',
                 color: 'var(--text-primary)',
                 outline: 'none',
                 resize: 'none',
                 width: '100%'
-              }} 
+              }}
             ></textarea>
             <motion.button
               type="submit"
               whileHover={{ scale: 1.02, boxShadow: '0 10px 20px -10px var(--accent-color)' }}
               whileTap={{ scale: 0.98 }}
-              style={{ 
+              style={{
                 background: 'linear-gradient(135deg, var(--accent-color), var(--accent-secondary))',
                 padding: '1.25rem',
                 borderRadius: '12px',

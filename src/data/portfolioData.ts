@@ -47,7 +47,7 @@ export const portfolioData: PortfolioData = {
   ],
   featuredProjects: [
     {
-      title: "가족 소통을 위한 웹사이트",
+      title: "가족 소통을 위한 웹",
       label: "Personal Project",
       image: "public/featuredprojectmain.png",
       problem: "가족들이 단순한 채팅방 이상으로 서로의 일상과 계획, 미래에 대해 기록할 수 있는 웹 소통 공간을 만들고자 했습니다.",
