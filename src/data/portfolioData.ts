@@ -70,6 +70,13 @@ export const portfolioData: PortfolioData = {
       tags: ["인생_어렵다"],
       link: "#",
     },
+    {
+      title: "아스날 FC 화이팅",
+      image: "/mywork1.png",
+      description: "제발 우승하자",
+      tags: ["요케레스 30골 기원 1일차"],
+      link: "#",
+    },
   ],
   skills: [
     {
