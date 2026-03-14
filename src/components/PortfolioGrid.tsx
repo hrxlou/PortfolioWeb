@@ -22,26 +22,26 @@ const ProjectCard = ({ title, description, tags, index, image, link }: ProjectCa
   >
     <div className="project-image-container small">
       {image ? (
-        <a 
-          href={link} 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
           className="project-image-link"
           style={{ cursor: link ? 'pointer' : 'default' }}
         >
-          <img 
-            src={image} 
-            alt={title} 
+          <img
+            src={image}
+            alt={title}
             className="project-image"
           />
         </a>
       ) : (
-        <div style={{ 
-          width: '100%', 
-          height: '100%', 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center', 
+        <div style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           color: 'var(--text-secondary)',
           background: 'var(--glass-bg)',
           borderRadius: '12px',
