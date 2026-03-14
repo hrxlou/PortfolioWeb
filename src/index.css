@@ -12,8 +12,8 @@ html {
   --text-secondary: #b0b0b0; /* Improved secondary text visibility */
   --accent-color: #6366f1;
   --accent-secondary: #06b6d4;
-  --glass-bg: rgba(255, 255, 255, 0.05); /* Increased visibility for glass */
-  --glass-border: rgba(255, 255, 255, 0.12); /* Stronger border for definition */
+  --glass-bg: rgba(28, 28, 30, 0.7); /* Much more opaque and gray for visibility */
+  --glass-border: rgba(255, 255, 255, 0.15); /* Stronger border */
   --font-main: 'Outfit', sans-serif;
   --image-opacity: 0.9;
   

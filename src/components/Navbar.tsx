@@ -26,6 +26,10 @@ const Navbar = ({ onNavClick }: NavbarProps) => {
     <nav style={{ 
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, 
       padding: scrolled ? '0.8rem 0' : '1.5rem 0',
+      background: scrolled ? 'var(--glass-bg)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(12px)' : 'none',
+      WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
+      borderBottom: scrolled ? '1px solid var(--glass-border)' : '1px solid transparent',
       transition: 'all 0.3s ease'
     }}>
       <div className="container" style={{ 
@@ -53,8 +57,10 @@ const Navbar = ({ onNavClick }: NavbarProps) => {
             padding: '0.4rem 1.25rem', 
             display: 'flex', 
             gap: '1.5rem',
-            background: scrolled ? 'var(--glass-bg)' : 'rgba(255,255,255,0.03)',
-            backdropFilter: 'blur(10px)'
+            background: scrolled ? 'transparent' : 'rgba(255,255,255,0.03)',
+            backdropFilter: scrolled ? 'none' : 'blur(10px)',
+            border: scrolled ? 'none' : '1px solid var(--glass-border)',
+            boxShadow: scrolled ? 'none' : '0 4px 30px rgba(0, 0, 0, 0.2)'
           }}
         >
           {navItems.map((item) => (
