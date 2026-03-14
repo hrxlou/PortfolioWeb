@@ -131,7 +131,6 @@ nav {
 }
 
 /* PC 스타일: 스크롤 시 상단 바 디자인 */
-/* PC 스타일: 스크롤 시 상단 바 디자인 */
 @media (min-width: 769px) {
   .nav-scrolled {
     --nav-padding: 0.7rem;
