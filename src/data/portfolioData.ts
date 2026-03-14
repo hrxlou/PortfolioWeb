@@ -49,7 +49,7 @@ export const portfolioData: PortfolioData = {
     {
       title: "가족 소통을 위한 웹",
       label: "Personal Project",
-      image: "public/featuredprojectmain.png",
+      image: "/featuredprojectmain.png",
       problem: "가족들이 단순한 채팅방 이상으로 서로의 일상과 계획, 미래에 대해 기록할 수 있는 웹 소통 공간을 만들고자 했습니다.",
       solution: "React와 Next.js 환경에서 실시간 게시판, 사진첩, 가족 캘린더 기능을 통합하여 가족만의 전용 플랫폼을 구축했습니다.",
       techStack: ["React", "TypeScript", "Next.js", "Firebase"],
@@ -59,7 +59,7 @@ export const portfolioData: PortfolioData = {
   projects: [
     {
       title: "솔직히 아직 한게 없습니다",
-      image: "public/mywork1.png",
+      image: "/mywork1.png",
       description: "열심히 살게요 😅",
       tags: ["인생_어렵다"],
       link: "#", // 예시 링크
