@@ -1,4 +1,4 @@
-import { ExternalLink } from 'lucide-react';
+import ProjectImage from './ProjectImage';
 import { motion } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
 
@@ -21,26 +21,16 @@ const ProjectCard = ({ title, description, tags, index, image, link }: ProjectCa
     whileHover={{ y: -10, transition: { duration: 0.2 } }}
     style={{ padding: '0', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
   >
-    <div className="project-image-container small">
-      {image ? (
-        <div className="project-image-link">
-          <img
-            src={image}
-            alt={title}
-            className="project-image"
-            style={{ cursor: 'default' }}
-          />
-          <a 
-            href={link} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="project-link-icon"
-            title="Visit Project"
-          >
-            <ExternalLink size={16} />
-          </a>
-        </div>
-      ) : (
+    {image ? (
+      <ProjectImage 
+        image={image} 
+        title={title} 
+        link={link || '#'} 
+        isSmall 
+        iconSize={16} 
+      />
+    ) : (
+      <div className="project-image-container small">
         <div style={{
           width: '100%',
           height: '100%',
@@ -52,8 +42,8 @@ const ProjectCard = ({ title, description, tags, index, image, link }: ProjectCa
           borderRadius: '12px',
           border: '1px dashed var(--glass-border)'
         }}>Preview</div>
-      )}
-    </div>
+      </div>
+    )}
     <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem', flexGrow: 1 }}>
       <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary)' }}>{title}</h3>
       <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.6, flexGrow: 1 }}>{description}</p>
