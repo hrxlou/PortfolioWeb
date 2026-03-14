@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { portfolioData } from '../data/portfolioData';
 
 interface NavbarProps {
   onNavClick: () => void;
@@ -8,7 +7,6 @@ interface NavbarProps {
 
 const Navbar = ({ onNavClick }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
-  const { name } = portfolioData.personal;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
