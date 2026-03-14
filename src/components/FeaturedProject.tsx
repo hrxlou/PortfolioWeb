@@ -20,7 +20,7 @@ const FeaturedProject = ({ navKey }: { navKey: number }) => {
         
         <div className="project-card-grid">
           {featuredProjects.map((project, index) => (
-            <div key={index} className="glass project-card-inner">
+            <div key={index} className="glass project-card-inner" style={{ backdropFilter: 'blur(12px) saturate(150%)' }}>
               <div className="project-content">
                 <span className="gradient-text" style={{ fontWeight: 600, fontSize: '0.9rem', textTransform: 'uppercase' }}>{project.label}</span>
                 <h3 style={{ fontSize: '2rem', margin: '1rem 0', fontWeight: 700 }}>{project.title}</h3>
