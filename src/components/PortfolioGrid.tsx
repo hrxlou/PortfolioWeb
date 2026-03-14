@@ -1,3 +1,4 @@
+import { ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
 
@@ -34,6 +35,9 @@ const ProjectCard = ({ title, description, tags, index, image, link }: ProjectCa
             alt={title}
             className="project-image"
           />
+          <div className="project-link-icon">
+            <ExternalLink size={16} />
+          </div>
         </a>
       ) : (
         <div style={{
