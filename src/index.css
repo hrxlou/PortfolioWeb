@@ -6,17 +6,22 @@ html {
 
 :root {
   /* Dark Mode (Default) - High Contrast & Better Visibility */
-  --bg-color: #0a0a0a; /* Slightly lighter black for depth */
-  --card-bg: #1c1c1e; /* Distinctly lighter gray for cards */
+  --bg-color: #0a0a0a;
+  /* Slightly lighter black for depth */
+  --card-bg: #1c1c1e;
+  /* Distinctly lighter gray for cards */
   --text-primary: #ffffff;
-  --text-secondary: #b0b0b0; /* Improved secondary text visibility */
+  --text-secondary: #b0b0b0;
+  /* Improved secondary text visibility */
   --accent-color: #6366f1;
   --accent-secondary: #06b6d4;
-  --glass-bg: rgba(28, 28, 30, 0.75); /* Balanced transparency */
-  --glass-border: rgba(255, 255, 255, 0.15); /* Stronger border */
+  --glass-bg: rgba(28, 28, 30, 0.75);
+  /* Balanced transparency */
+  --glass-border: rgba(255, 255, 255, 0.15);
+  /* Stronger border */
   --font-main: 'Outfit', sans-serif;
   --image-opacity: 0.9;
-  
+
   --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --nav-padding: 1.2rem;
   --section-padding: 100px;
@@ -52,10 +57,21 @@ html {
   left: -10%;
 }
 
-.bg-decoration.top-right.dark { background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(0,0,0,0) 70%); }
-.bg-decoration.top-right.light { background: radial-gradient(circle, rgba(99, 102, 241, 0.04) 0%, rgba(0,0,0,0) 70%); }
-.bg-decoration.bottom-left.dark { background: radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, rgba(0,0,0,0) 70%); }
-.bg-decoration.bottom-left.light { background: radial-gradient(circle, rgba(6, 182, 212, 0.03) 0%, rgba(0,0,0,0) 70%); }
+.bg-decoration.top-right.dark {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.bg-decoration.top-right.light {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.04) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.bg-decoration.bottom-left.dark {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.bg-decoration.bottom-left.light {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.03) 0%, rgba(0, 0, 0, 0) 70%);
+}
 
 .footer {
   padding: 4rem 0;
@@ -97,14 +113,16 @@ nav {
 
 .nav-menu {
   gap: 1.5rem;
-  background: var(--glass-bg) !important; /* 변수 사용 및 우선순위 확보 */
+  background: var(--glass-bg) !important;
+  /* 변수 사용 및 우선순위 확보 */
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid var(--glass-border);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   padding: 0.4rem 1.25rem;
   display: flex;
-  border-radius: 100px; /* 알약 모양 유지 */
+  border-radius: 100px;
+  /* 알약 모양 유지 */
 }
 
 .nav-link {
@@ -112,25 +130,28 @@ nav {
   font-weight: 500;
 }
 
-/* PC 스타일: 스크롤 시 전체 바 디자인 최적화 */
+/* PC 스타일: 스크롤 시 상단 바 디자인 */
 @media (min-width: 769px) {
   .nav-scrolled {
     --nav-padding: 0.7rem;
-    background: rgba(10, 10, 10, 0.85) !important; /* 더 불투명하게 조정 */
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    /* 전체 바 배경: 투명도를 0.95(95%)까지 올려서 거의 안 비치게 설정 */
+    background: rgba(10, 10, 10, 0.95) !important;
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
     border-bottom: 1px solid var(--glass-border);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   }
 
   [data-theme='light'] .nav-scrolled {
-    background: rgba(255, 255, 255, 0.85) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
   }
 
-  /* PC에서 스크롤 시 메뉴 캡슐 스타일 유지 */
+  /* 스크롤 시 내부 메뉴 캡슐의 배경을 투명하게 해서 이질감 제거 */
   .nav-scrolled .nav-menu {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
   }
 }
 
@@ -163,16 +184,19 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; /* macOS optimization */
+  -moz-osx-font-smoothing: grayscale;
+  /* macOS optimization */
   transition: background-color 0.3s ease, color 0.3s ease;
-  touch-action: manipulation; /* Faster touch interactions */
+  touch-action: manipulation;
+  /* Faster touch interactions */
 }
 
 a {
   text-decoration: none;
   color: inherit;
   transition: var(--transition-smooth);
-  -webkit-tap-highlight-color: transparent; /* Remove mobile tap highlight */
+  -webkit-tap-highlight-color: transparent;
+  /* Remove mobile tap highlight */
 }
 
 button {
@@ -191,13 +215,15 @@ button {
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Deeper shadow */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  /* Deeper shadow */
   will-change: transform, backdrop-filter;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glass:hover {
-  border-color: rgba(255, 255, 255, 0.15); /* Brighten border on hover */
+  border-color: rgba(255, 255, 255, 0.15);
+  /* Brighten border on hover */
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
 }
 
@@ -212,7 +238,8 @@ button {
   margin: 0 auto;
   padding-left: 4rem;
   padding-right: 4rem;
-  width: 100%; /* Ensure it doesn't exceed screen */
+  width: 100%;
+  /* Ensure it doesn't exceed screen */
 }
 
 /* Fix for breaking layouts during resize */
@@ -226,7 +253,8 @@ button {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  white-space: nowrap; /* Prevent gradient text from wrapping awkwardly */
+  white-space: nowrap;
+  /* Prevent gradient text from wrapping awkwardly */
 }
 
 /* Section Spacing & Headings */
@@ -237,7 +265,7 @@ section {
 
 section h2 {
   font-size: clamp(2.5rem, 6vw, 3.5rem);
-  margin-bottom: 3.5rem;   
+  margin-bottom: 3.5rem;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -324,7 +352,7 @@ section h2 {
   .container {
     max-width: 1500px;
   }
-  
+
   :root {
     --section-spacing: 140px;
   }
@@ -335,9 +363,10 @@ section h2 {
   .container {
     max-width: 1800px;
   }
-  
+
   html {
-    font-size: 18px; /* Scale up slightly for 4K */
+    font-size: 18px;
+    /* Scale up slightly for 4K */
   }
 
   section {
@@ -346,7 +375,8 @@ section h2 {
   }
 
   .project-card-inner {
-    grid-template-columns: 1fr 1fr; /* Force 2 columns on ultra wide featured cards */
+    grid-template-columns: 1fr 1fr;
+    /* Force 2 columns on ultra wide featured cards */
   }
 }
 
@@ -355,21 +385,27 @@ section h2 {
     padding-top: 80px;
     padding-bottom: 80px;
   }
+
   .container {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     justify-content: center !important;
   }
+
   section h2 {
     margin-bottom: 2.5rem;
   }
+
   .section-title {
     margin-bottom: 2.5rem;
   }
+
   :root {
     --nav-padding: 0.7rem !important;
   }
-}/* Project Card Styles */
+}
+
+/* Project Card Styles */
 .project-card-grid {
   display: flex;
   flex-direction: column;
@@ -412,7 +448,7 @@ section h2 {
   opacity: var(--image-opacity, 0.9);
   border-radius: 12px;
   border: 1px solid var(--glass-border);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   transition: var(--transition-smooth);
 }
 
@@ -609,7 +645,7 @@ section h2 {
   .nav-logo {
     display: none !important;
   }
-  
+
   .nav-menu {
     gap: 0.8rem !important;
     padding: 0.4rem 1rem !important;
@@ -618,7 +654,8 @@ section h2 {
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-radius: 100px; /* 더 둥글게 */
+    border-radius: 100px;
+    /* 더 둥글게 */
   }
 
   .nav-scrolled {
@@ -639,6 +676,7 @@ section h2 {
     height: 48px !important;
   }
 }
+
 /* Contact Styles */
 .contact-container {
   padding: clamp(2rem, 8vw, 5rem);
@@ -704,7 +742,8 @@ section h2 {
   gap: 1.5rem;
 }
 
-.contact-input, .contact-textarea {
+.contact-input,
+.contact-textarea {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   padding: 1.25rem;
