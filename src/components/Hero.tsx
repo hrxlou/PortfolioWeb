@@ -1,19 +1,11 @@
 import { motion } from 'framer-motion';
-import { Github, Instagram, ExternalLink, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
+import SocialIcon from './SocialIcon';
 
 const Hero = ({ navKey }: { navKey: number }) => {
   const { name, tagline, description } = portfolioData.personal;
   const { social } = portfolioData;
-
-  const getIcon = (name: string) => {
-    switch (name.toLowerCase()) {
-      case 'github': return <Github size={20} />;
-      case 'instagram': return <Instagram size={20} />;
-      case 'blog': return <ExternalLink size={20} />;
-      default: return <ExternalLink size={20} />;
-    }
-  };
 
   return (
     <section id="hero" className="container" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', position: 'relative' }}>
@@ -69,7 +61,7 @@ const Hero = ({ navKey }: { navKey: number }) => {
               whileHover={{ scale: 1.05, backgroundColor: 'var(--glass-bg)' }}
               whileTap={{ scale: 0.95 }}
             >
-              {getIcon(item.name)}
+              <SocialIcon name={item.name} />
               {item.name}
             </motion.a>
           ))}
@@ -102,4 +94,3 @@ const Hero = ({ navKey }: { navKey: number }) => {
 };
 
 export default Hero;
-

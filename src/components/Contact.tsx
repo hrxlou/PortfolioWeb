@@ -26,7 +26,7 @@ const Contact = ({ navKey }: { navKey: number }) => {
         style={{ padding: 'clamp(2rem, 8vw, 5rem)', maxWidth: '1000px', margin: '0 auto' }}
       >
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2>Get In <span className="gradient-text">Touch</span></h2>
+          <h2><span className="gradient-text">Contact</span> Me</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{message}</p>
         </div>
 
@@ -56,7 +56,8 @@ const Contact = ({ navKey }: { navKey: number }) => {
                 borderRadius: '12px',
                 color: 'var(--text-primary)',
                 outline: 'none',
-                width: '100%'
+                width: '100%',
+                fontFamily: 'inherit'
               }}
             />
             <textarea
@@ -72,7 +73,8 @@ const Contact = ({ navKey }: { navKey: number }) => {
                 color: 'var(--text-primary)',
                 outline: 'none',
                 resize: 'none',
-                width: '100%'
+                width: '100%',
+                fontFamily: 'inherit'
               }}
             ></textarea>
             <motion.button

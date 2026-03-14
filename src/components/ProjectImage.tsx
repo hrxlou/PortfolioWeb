@@ -15,7 +15,7 @@ const ProjectImage = ({ image, title, link, isSmall = false, iconSize = 18 }: Pr
       <div className="project-image-link">
         <motion.img 
           whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 0.2 }}
           src={image} 
           alt={title} 
           className="project-image"

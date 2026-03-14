@@ -13,7 +13,7 @@ const Skills = ({ navKey }: { navKey: number }) => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <h2 style={{ textAlign: 'center' }}>
+        <h2>
           My <span className="gradient-text">Skills</span>
         </h2>
         

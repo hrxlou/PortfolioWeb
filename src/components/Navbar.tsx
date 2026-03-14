@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { portfolioData } from '../data/portfolioData';
 
 interface NavbarProps {
   onNavClick: () => void;
@@ -7,6 +8,7 @@ interface NavbarProps {
 
 const Navbar = ({ onNavClick }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
+  const { name } = portfolioData.personal;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -23,42 +25,24 @@ const Navbar = ({ onNavClick }: NavbarProps) => {
   ];
 
   return (
-    <nav 
-      className={scrolled ? 'nav-scrolled' : ''}
-      style={{ 
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, 
-        padding: 'var(--nav-padding) 0',
-        transition: 'all 0.3s ease'
-      }}
-    >
-      <div className="container" style={{ 
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
-        {/* Logo Section */}
-        <motion.a 
+    <nav className={scrolled ? 'fixed-nav nav-scrolled' : 'fixed-nav'}>
+      <div className="container nav-container">
+        <motion.a
           href="#hero"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="gradient-text nav-logo"
-          style={{ fontWeight: 700, fontSize: '1.4rem', letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}
         >
-          Developer Portfolio
+          Hyun's Space
         </motion.a>
- 
-        {/* Right Menu Section */}
-        <motion.div 
+
+        <motion.div
           className="glass nav-menu"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          style={{ 
-            padding: '0.4rem 1.25rem', 
-            display: 'flex', 
-          }}
         >
           {navItems.map((item) => (
-            <a key={item.name} href={item.href} onClick={onNavClick} className="nav-link" style={{ fontSize: '0.85rem', fontWeight: 500 }}>
+            <a key={item.name} href={item.href} onClick={onNavClick} className="nav-link">
               {item.name}
             </a>
           ))}

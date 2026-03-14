@@ -70,7 +70,7 @@ const PortfolioGrid = ({ navKey }: { navKey: number }) => {
         transition={{ duration: 0.8 }}
       >
         <h2>
-          My <span className="gradient-text">Work</span>
+          My <span className="gradient-text">Works</span>
         </h2>
         <div style={{ 
           display: 'grid', 

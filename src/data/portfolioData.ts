@@ -1,6 +1,7 @@
 interface Personal {
   name: string;
   tagline: string;
+  intro: string;
   description: string;
   email: string;
 }
@@ -43,6 +44,7 @@ export const portfolioData: PortfolioData = {
   personal: {
     name: "김현",
     tagline: "@hrxlou",
+    intro: "안녕하세요, 저는 김현입니다.",
     description: "대학생 개발자 김현입니다. 현재 대학교 3학년으로, 새로운 기술을 익히고 프로젝트에 적용하며 문제 해결의 즐거움을 알아가고 있습니다. 빠르게 변화하는 세상에 적응하기 위해 매일 공부하고 있습니다.",
     email: "2271428@hansung.ac.kr",
   },
@@ -89,7 +91,7 @@ export const portfolioData: PortfolioData = {
     }
   ],
   contact: {
-    message: "함께 일하고 싶은 프로젝트가 있거나 궁금한 점이 있다면 언제든 연락주세요.",
+    message: "함께 하고 싶은 프로젝트가 있거나 궁금한 점이 있다면 언제든 연락주세요.",
     emailLabel: "Email me at",
   }
 };
