@@ -131,27 +131,35 @@ nav {
 }
 
 /* PC 스타일: 스크롤 시 상단 바 디자인 */
+/* PC 스타일: 스크롤 시 상단 바 디자인 */
 @media (min-width: 769px) {
   .nav-scrolled {
     --nav-padding: 0.7rem;
-    /* 전체 바 배경: 투명도를 0.95(95%)까지 올려서 거의 안 비치게 설정 */
-    background: rgba(10, 10, 10, 0.95) !important;
-    backdrop-filter: blur(15px) saturate(180%);
-    -webkit-backdrop-filter: blur(15px) saturate(180%);
+
+    /* 1. 배경색 자체를 반투명하게 설정 (0.75 = 85% 불투명) */
+    background: rgba(255, 255, 255, 0.75) !important;
+
+    /* 2. 블러 효과 (접두사 포함, !important로 강제 적용) */
+    backdrop-filter: blur(12px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+
     border-bottom: 1px solid var(--glass-border);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
 
-  [data-theme='light'] .nav-scrolled {
-    background: rgba(255, 255, 255, 0.95) !important;
+  /* 다크모드 대응 (필요한 경우) */
+  [data-theme='dark'] .nav-scrolled,
+  body.dark .nav-scrolled {
+    background: rgba(10, 10, 10, 0.75) !important;
   }
 
-  /* 스크롤 시 내부 메뉴 캡슐의 배경을 투명하게 해서 이질감 제거 */
+  /* 3. 메뉴 캡슐의 중복 배경 제거 */
   .nav-scrolled .nav-menu {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
     backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
 
