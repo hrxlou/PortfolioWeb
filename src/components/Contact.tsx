@@ -3,7 +3,7 @@ import { Mail, Send } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Contact = () => {
-  const { email, name: ownerName } = portfolioData.personal;
+  const { email } = portfolioData.personal;
   const { message, emailLabel } = portfolioData.contact;
 
   const handleSubmit = (e: React.FormEvent) => {
