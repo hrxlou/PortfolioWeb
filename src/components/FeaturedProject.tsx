@@ -1,3 +1,4 @@
+import { ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
 
@@ -58,6 +59,9 @@ const FeaturedProject = () => {
                       alt={project.title} 
                       className="project-image"
                     />
+                    <div className="project-link-icon">
+                      <ExternalLink size={18} />
+                    </div>
                   </a>
                 ) : (
                   <div style={{ width: '100%', height: '100%', background: 'var(--glass-bg)', borderRadius: '12px', border: '1px dashed var(--glass-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
