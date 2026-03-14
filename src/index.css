@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
 :root {
-  /* Dark Mode (Default) */
-  --bg-color: #050505;
-  --card-bg: #0f0f0f;
+  /* Dark Mode (Default) - Enhanced Contrast */
+  --bg-color: #020202; /* Deeper black */
+  --card-bg: #111111; /* Slightly lighter card for contrast */
   --text-primary: #ffffff;
   --text-secondary: #a0a0a0;
   --accent-color: #6366f1;
   --accent-secondary: #06b6d4;
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.1);
   --font-main: 'Outfit', sans-serif;
   --image-opacity: 0.7;
   
@@ -61,15 +61,16 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Glassmorphism Utility */
+/* Glassmorphism Utility - Optimized for performance */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  backdrop-filter: blur(8px); /* Reduced blur for performance */
+  -webkit-backdrop-filter: blur(8px); /* Safari support */
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  will-change: transform, backdrop-filter; /* Hardware acceleration hint */
 }
 
 
