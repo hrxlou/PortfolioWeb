@@ -12,7 +12,7 @@ html {
   --text-secondary: #b0b0b0; /* Improved secondary text visibility */
   --accent-color: #6366f1;
   --accent-secondary: #06b6d4;
-  --glass-bg: rgba(28, 28, 30, 0.7); /* Much more opaque and gray for visibility */
+  --glass-bg: rgba(28, 28, 30, 0.85); /* Balanced transparency */
   --glass-border: rgba(255, 255, 255, 0.15); /* Stronger border */
   --font-main: 'Outfit', sans-serif;
   --image-opacity: 0.9;
@@ -42,6 +42,7 @@ nav {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   }
 
   /* PC에서 스크롤 시 알약 모양은 배경에 녹아들게 함 */
@@ -65,7 +66,7 @@ nav {
   --text-secondary: #64748b;
   --accent-color: #4f46e5;
   --accent-secondary: #0891b2;
-  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(15, 23, 42, 0.1);
   --image-opacity: 1;
 }
