@@ -19,9 +19,9 @@ const Skills = ({ navKey }: { navKey: number }) => {
         
         <div style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-          gap: '2rem',
-          marginTop: '2rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
+          gap: '2.5rem',
+          marginTop: '3rem'
         }}>
           {skills.map((skillGroup, index) => (
             <motion.div

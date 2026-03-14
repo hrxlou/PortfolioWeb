@@ -72,7 +72,11 @@ const PortfolioGrid = ({ navKey }: { navKey: number }) => {
         <h2>
           My <span className="gradient-text">Work</span>
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(320px, 20vw, 450px), 1fr))', 
+          gap: '2.5rem' 
+        }}>
           {projects.map((project, index) => (
             <ProjectCard key={index} {...project} index={index} />
           ))}

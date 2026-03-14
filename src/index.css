@@ -131,6 +131,37 @@ section h2 {
   }
 }
 
+/* Wide Screen Optimization (1600px+) */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1500px;
+  }
+  
+  :root {
+    --section-spacing: 140px;
+  }
+}
+
+/* Ultra Wide / 4K Optimization (2000px+) */
+@media (min-width: 2000px) {
+  .container {
+    max-width: 1800px;
+  }
+  
+  html {
+    font-size: 18px; /* Scale up slightly for 4K */
+  }
+
+  section {
+    padding-top: 160px;
+    padding-bottom: 160px;
+  }
+
+  .project-card-inner {
+    grid-template-columns: 1fr 1fr; /* Force 2 columns on ultra wide featured cards */
+  }
+}
+
 @media (max-width: 768px) {
   section {
     padding-top: 80px;
