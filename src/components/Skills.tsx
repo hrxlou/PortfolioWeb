@@ -6,10 +6,14 @@ import { useTranslation } from '../i18n';
 const Skills = () => {
   const { skills } = portfolioData;
   const { t } = useTranslation();
-  const [isMobile, setIsMobile] = useState(false);
+  // 마우스 포인터 감지
+  const [isPC, setIsPC] = useState(() => typeof window !== 'undefined' ? window.matchMedia('(pointer: fine)').matches : true);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    const mediaQuery = window.matchMedia('(pointer: fine)');
+    const handleChange = (e: MediaQueryListEvent) => setIsPC(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   return (
@@ -31,18 +35,17 @@ const Skills = () => {
               <motion.div
                 key={skillGroup.category}
                 className="glass skill-card"
-                // 구조를 통일하여 깜빡임 방지
-                initial={{ opacity: 0, y: isMobile ? 10 : 30 }}
+                // 모바일에서는 y축 이동 0으로 설정
+                initial={{ opacity: 0, y: isPC ? 30 : 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ 
                   duration: 0.6, 
-                  delay: isMobile ? (index * 0.05) : 0.15 + (index * 0.1),
+                  delay: isPC ? 0.15 + (index * 0.1) : (index * 0.05),
                   ease: "easeOut"
                 }}
-                whileHover={isMobile ? {} : { y: -10, scale: 1.02 }}
-              >
-                <h3 className="skill-category">
+                whileHover={!isPC ? {} : { y: -10, scale: 1.02 }}
+              >                <h3 className="skill-category">
                   {t(`skills.categories.${categoryKey}`)}
                 </h3>
                 <div className="skills-list">

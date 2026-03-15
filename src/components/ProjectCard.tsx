@@ -15,28 +15,29 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ id, tags, index, image, link, onOpen }: ProjectCardProps & { id: string }) => {
   const { t } = useTranslation();
-  // 즉시 화면 크기 감지하여 초기 렌더링 깜빡임 방지
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+  // 마우스 포인터 감지
+  const [isPC, setIsPC] = useState(() => typeof window !== 'undefined' ? window.matchMedia('(pointer: fine)').matches : true);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const mediaQuery = window.matchMedia('(pointer: fine)');
+    const handleChange = (e: MediaQueryListEvent) => setIsPC(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   return (
     <motion.div
       className="glass card-inner"
-      // 구조 통일: isMobile 조건에 따라 값만 변경
-      initial={{ opacity: 0, y: isMobile ? 10 : 30 }}
+      // 모바일에서는 y축 이동 0으로 설정하여 깜빡임 원천 차단
+      initial={{ opacity: 0, y: isPC ? 30 : 0 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ 
         duration: 0.8, 
-        delay: isMobile ? (index * 0.05) : index * 0.1, 
+        delay: isPC ? index * 0.1 : index * 0.05, 
         ease: [0.16, 1, 0.3, 1] 
       }}
-      whileHover={isMobile ? {} : { 
+      whileHover={!isPC ? {} : { 
         y: -15, 
         scale: 1.02,
         transition: { type: "spring", stiffness: 300, damping: 15 } 

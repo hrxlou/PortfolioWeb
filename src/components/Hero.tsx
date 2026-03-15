@@ -9,13 +9,15 @@ const Hero = () => {
   const { social } = portfolioData;
   const { t } = useTranslation();
   
-  // 첫 렌더링 시점에 즉시 화면 크기를 확인하여 깜빡임 방지
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+  // 마우스 포인터가 있는 환경(PC)인지 확인
+  const [isPC, setIsPC] = useState(() => typeof window !== 'undefined' ? window.matchMedia('(pointer: fine)').matches : true);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const mediaQuery = window.matchMedia('(pointer: fine)');
+    const handleChange = (e: MediaQueryListEvent) => setIsPC(e.matches);
+    
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   const scrollToNext = () => {
@@ -28,8 +30,8 @@ const Hero = () => {
   return (
     <section id="hero" className="container hero-section">
       <motion.div
-        // 구조를 { opacity, y }로 통일하여 리렌더링 시 구조 변경 방지
-        initial={{ opacity: 0, y: isMobile ? 10 : 40 }}
+        // 모바일(isPC false)일 때는 y축 이동 0
+        initial={{ opacity: 0, y: isPC ? 40 : 0 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
       >
@@ -54,15 +56,15 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="glass social-item"
-              // 여기도 구조 통일
-              initial={{ opacity: 0, y: isMobile ? 5 : 20 }}
+              // 모바일에서는 y축 이동 없이 페이드인만
+              initial={{ opacity: 0, y: isPC ? 20 : 0 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ 
-                delay: isMobile ? (index * 0.05) : 0.6 + (index * 0.15), 
+                delay: isPC ? 0.6 + (index * 0.15) : (index * 0.05), 
                 duration: 0.8,
                 ease: "easeOut"
               }}
-              whileHover={isMobile ? {} : { 
+              whileHover={!isPC ? {} : { 
                 scale: 1.08, 
                 y: -8,
                 transition: { type: "spring", stiffness: 400, damping: 10 } 

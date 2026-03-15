@@ -7,18 +7,21 @@ import { useTranslation } from '../i18n';
 const FeaturedProject = ({ onOpenProject }: { onOpenProject: (project: any) => void }) => {
   const { featuredProjects } = portfolioData;
   const { t } = useTranslation();
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+  // 마우스 포인터 감지
+  const [isPC, setIsPC] = useState(() => typeof window !== 'undefined' ? window.matchMedia('(pointer: fine)').matches : true);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const mediaQuery = window.matchMedia('(pointer: fine)');
+    const handleChange = (e: MediaQueryListEvent) => setIsPC(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   return (
     <section id="featured" className="container">
       <motion.div
-        initial={{ opacity: 0, y: isMobile ? 0 : 40 }}
+        // 모바일에서는 y축 이동 0
+        initial={{ opacity: 0, y: isPC ? 40 : 0 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
