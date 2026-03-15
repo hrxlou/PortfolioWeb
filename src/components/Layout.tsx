@@ -12,7 +12,7 @@ interface LayoutProps {
 const Layout = ({ children, theme, toggleTheme, onNavClick }: LayoutProps) => {
   return (
     <main className="main-layout">
-      <Navbar onNavClick={onNavClick || (() => {})} />
+      <Navbar theme={theme} onNavClick={onNavClick || (() => {})} />
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       
       {/* Background decoration */}

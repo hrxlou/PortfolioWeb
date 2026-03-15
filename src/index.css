@@ -631,12 +631,12 @@ section h2 {
     padding: 0.4rem 1rem !important;
     width: auto;
     /* 모바일에서는 스크롤 시에도 둥근 알약 스타일 강제 유지 */
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border-radius: 100px !important;
-    border: 1px solid var(--glass-border) !important;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2) !important;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 100px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   }
 
   .nav-scrolled {
