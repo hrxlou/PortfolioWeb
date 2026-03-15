@@ -48,7 +48,8 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
         position: 'fixed',
         top: 0, left: 0, right: 0,
         zIndex: 100,
-        padding: isBarMode ? '0.8rem 0' : (isMobile ? '0.7rem 0' : '1.2rem 0'),
+        paddingTop: `calc(${isBarMode ? '0.8rem' : (isMobile ? '0.7rem' : '1.2rem')} + env(safe-area-inset-top))`,
+        paddingBottom: isBarMode ? '0.8rem' : (isMobile ? '0.7rem' : '1.2rem'),
         // all 대신 특정 속성만 지정하여 깜빡임 방지
         transition: 'padding 0.4s ease, background 0.4s ease, border 0.4s ease, box-shadow 0.4s ease',
         background: isBarMode ? glassBg : 'transparent',

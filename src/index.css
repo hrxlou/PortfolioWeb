@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
-html,
+html {
+  background-color: var(--bg-color);
+}
+
 body {
-  min-height: 100dvh;
   margin: 0;
   padding: 0;
-  background-color: var(--bg-color);
+  background-color: transparent;
+  min-height: 100dvh;
 }
 
 /* 2. 알맹이가 알아서 늘어나도록 설정 */
@@ -46,6 +49,8 @@ html {
 
 /* Layout Styles */
 .main-layout {
+  position: relative;
+  z-index: 10;
   background-color: transparent;
   transition: background-color 0.3s ease;
   padding-bottom: env(safe-area-inset-bottom);
