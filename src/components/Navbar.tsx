@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { useTranslation } from '../i18n';
 
 interface NavbarProps {
@@ -20,7 +19,7 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
 
     handleResize();
     handleScroll();
-    setIsMounted(true); // 마운트 완료 시점을 명시적으로 관리
+    setIsMounted(true);
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleScroll);
@@ -65,7 +64,7 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
       }}
     >
       <div className="container nav-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="gradient-text nav-logo">
+        <div className="gradient-text nav-logo" style={{ fontWeight: 700, fontSize: '1.4rem' }}>
           Hyun's Space
         </div>
 
@@ -90,19 +89,14 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
             <a
               key={item.name}
               href={`#${item.id}`}
-...
-          {navLinks.map((item) => (
-            <a
-              key={item.name}
-              href={`#${item.id}`}
               onClick={() => onNavClick(item.id)}
               className="nav-link"
-              style={{ fontSize: isMobile ? '0.85rem' : '1rem' }}
+              style={{ fontSize: isMobile ? '0.85rem' : '1rem', fontWeight: 500 }}
             >
               {item.name}
             </a>
           ))}
-        </motion.div>
+        </div>
       </div>
     </nav>
   );

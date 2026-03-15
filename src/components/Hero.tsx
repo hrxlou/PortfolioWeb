@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 import SocialIcon from './SocialIcon';
@@ -6,7 +6,7 @@ import { useTranslation } from '../i18n';
 
 const Hero = () => {
   const { social } = portfolioData;
-  const { t, language } = useTranslation();
+  const { t } = useTranslation();
   const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
 
   return (

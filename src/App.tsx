@@ -9,7 +9,7 @@ import { TranslationProvider, useTranslation } from './i18n';
 import CustomCursor from './components/CustomCursor';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import FloatingControls from './components/FloatingControls';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import ProjectModal from './components/ProjectModal';
 import { portfolioData } from './data/portfolioData';
 
