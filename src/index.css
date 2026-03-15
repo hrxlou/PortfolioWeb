@@ -5,7 +5,7 @@ body {
   min-height: 100dvh;
   margin: 0;
   padding: 0;
-  background-color: var(--bg-color);
+  background-color: transparent !important;
 }
 
 #root {
@@ -72,8 +72,8 @@ html {
   pointer-events: none;
   overflow: hidden;
 
-  /* 4. 배경색 삭제 (중요: 여기서 색을 칠하면 유리 효과가 죽습니다) */
-  background-color: transparent;
+  /* 4. 배경색 부여 (html/body 대신 여기서 칠해 노치 영역까지 확장) */
+  background-color: var(--bg-color);
 }
 
 .noise-overlay {
