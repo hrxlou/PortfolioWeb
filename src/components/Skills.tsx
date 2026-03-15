@@ -31,12 +31,13 @@ const Skills = () => {
               <motion.div
                 key={skillGroup.category}
                 className="glass skill-card"
-                initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 30 }}
+                // 구조를 통일하여 깜빡임 방지
+                initial={{ opacity: 0, y: isMobile ? 10 : 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ 
                   duration: 0.6, 
-                  delay: index * (isMobile ? 0.05 : 0.15),
+                  delay: isMobile ? (index * 0.05) : 0.15 + (index * 0.1),
                   ease: "easeOut"
                 }}
                 whileHover={isMobile ? {} : { y: -10, scale: 1.02 }}

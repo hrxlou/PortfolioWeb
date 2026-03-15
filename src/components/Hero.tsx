@@ -28,9 +28,10 @@ const Hero = () => {
   return (
     <section id="hero" className="container hero-section">
       <motion.div
-        initial={isMobile ? false : { opacity: 0, y: 40 }}
+        // 구조를 { opacity, y }로 통일하여 리렌더링 시 구조 변경 방지
+        initial={{ opacity: 0, y: isMobile ? 10 : 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }} // 세련된 베지어 곡선
+        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="hero-content">
           <p className="gradient-text hero-tagline">
@@ -53,10 +54,11 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="glass social-item"
-              initial={isMobile ? false : { opacity: 0, y: 20 }}
+              // 여기도 구조 통일
+              initial={{ opacity: 0, y: isMobile ? 5 : 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ 
-                delay: isMobile ? 0 : 0.6 + (index * 0.15), 
+                delay: isMobile ? (index * 0.05) : 0.6 + (index * 0.15), 
                 duration: 0.8,
                 ease: "easeOut"
               }}

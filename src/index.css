@@ -28,22 +28,6 @@ html {
 }
 
 /* Layout Styles */
-/* 초기 등장 페이드인 효과 (CSS) */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.hero-content, .social-links {
-  animation: fadeIn 1.2s ease-out forwards;
-}
-
-@media (max-width: 768px) {
-  .hero-content, .social-links {
-    animation: fadeIn 0.8s ease-out forwards; /* 모바일은 조금 더 빠르게 */
-  }
-}
-
 .main-layout {
   background-color: var(--bg-color);
   min-height: 100vh;

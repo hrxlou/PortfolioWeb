@@ -27,12 +27,13 @@ const ProjectCard = ({ id, tags, index, image, link, onOpen }: ProjectCardProps 
   return (
     <motion.div
       className="glass card-inner"
-      initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 30 }}
+      // 구조 통일: isMobile 조건에 따라 값만 변경
+      initial={{ opacity: 0, y: isMobile ? 10 : 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ 
         duration: 0.8, 
-        delay: index * (isMobile ? 0.05 : 0.1), 
+        delay: isMobile ? (index * 0.05) : index * 0.1, 
         ease: [0.16, 1, 0.3, 1] 
       }}
       whileHover={isMobile ? {} : { 
