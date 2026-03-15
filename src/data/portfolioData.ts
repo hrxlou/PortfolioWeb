@@ -86,6 +86,10 @@ export const portfolioData: PortfolioData = {
       items: ["내가 뭘 할줄알지..."]
     },
     {
+      category: "Backend",
+      items: ["얘도 좀..."]
+    },
+    {
       category: "Learning",
       items: ["Algorithm", "General CS", "Mobile App Dev", "DataBase"]
     }
