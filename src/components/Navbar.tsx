@@ -21,13 +21,22 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
     <nav
       className="fixed-nav"
       style={{
-        padding: '1.2rem 0',
-        background: 'transparent',
-        transition: 'all 0.3s ease',
+        position: 'fixed',
+        top: 0, left: 0, right: 0,
         zIndex: 100,
+        padding: '0.8rem 0',
+        transition: 'all 0.3s ease',
+
+        /* ✅ [변경] 알약에 있던 배경과 블러를 네비바 전체로 이동 */
+        background: theme === 'dark'
+          ? 'rgba(15, 17, 21, 0.8)'
+          : 'rgba(255, 255, 255, 0.8)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        backdropFilter: 'blur(12px) saturate(180%)',
+        borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(15, 23, 42, 0.05)'}`,
       }}
     >
-      <div className="container nav-container">
+      <div className="container nav-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <motion.a
           href="#hero"
           initial={{ opacity: 0, x: -20 }}
@@ -40,22 +49,17 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
         <motion.div
           className="nav-menu"
           style={{
-            /* 배경색: 테마별 투명도 강제 설정 */
-            background: theme === 'dark'
-              ? 'rgba(15, 17, 21, 0.75)'
-              : 'rgba(255, 255, 255, 0.75)',
-            border: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.15)' : 'rgba(15, 23, 42, 0.1)'}`,
+            /* ✅ [변경] 알약 모양을 만드는 속성들을 제거/투명화 */
+            background: 'transparent',
+            border: 'none',
+            backdropFilter: 'none',
+            WebkitBackdropFilter: 'none',
+            boxShadow: 'none',
+            borderRadius: '0',
 
-            /* 블러 효과: Safari 호환성(Webkit) 포함 강제 적용 */
-            WebkitBackdropFilter: 'blur(12px) saturate(180%)',
-            backdropFilter: 'blur(12px) saturate(180%)',
-
-            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.2)',
-            transition: 'all 0.3s ease',
-            borderRadius: '100px',
             display: 'flex',
             alignItems: 'center',
-            padding: '0.4rem 1.25rem',
+            gap: '1.5rem', // 메뉴 사이 간격
           }}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
