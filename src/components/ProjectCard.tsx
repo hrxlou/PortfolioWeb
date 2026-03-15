@@ -18,10 +18,12 @@ const ProjectCard = memo(({ id, tags, index, image, link, onOpen }: ProjectCardP
   // 마우스 포인터 감지
   const [isPC, setIsPC] = useState(() => typeof window !== 'undefined' ? window.matchMedia('(pointer: fine)').matches : true);
 
+  const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     const mediaQuery = window.matchMedia('(pointer: fine)');
     const handleChange = (e: MediaQueryListEvent) => setIsPC(e.matches);
     mediaQuery.addEventListener('change', handleChange);
+    setIsMounted(true);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
@@ -34,14 +36,14 @@ const ProjectCard = memo(({ id, tags, index, image, link, onOpen }: ProjectCardP
       animate={!isPC ? { opacity: 1, y: 0 } : {}}
       viewport={{ once: true, amount: 0.1 }}
       transition={isPC ? { 
-        duration: 0.8, 
-        delay: index * 0.1, 
+        duration: isMounted ? 0.3 : 0.8, 
+        delay: isMounted ? 0 : index * 0.1, 
         ease: [0.16, 1, 0.3, 1] 
       } : { duration: 0 }}
       whileHover={!isPC ? {} : { 
         y: -10, 
         scale: 1.02,
-        transition: { type: "spring", stiffness: 450, damping: 20 } 
+        transition: { type: "spring", stiffness: 500, damping: 25 } 
       }}
       style={{ cursor: 'pointer' }}
       onClick={onOpen}

@@ -12,11 +12,13 @@ const Hero = () => {
   // 마우스 포인터가 있는 환경(PC)인지 확인
   const [isPC, setIsPC] = useState(() => typeof window !== 'undefined' ? window.matchMedia('(pointer: fine)').matches : true);
 
+  const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     const mediaQuery = window.matchMedia('(pointer: fine)');
     const handleChange = (e: MediaQueryListEvent) => setIsPC(e.matches);
     
     mediaQuery.addEventListener('change', handleChange);
+    setIsMounted(true);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
@@ -60,14 +62,14 @@ const Hero = () => {
               initial={isPC ? { opacity: 0, y: 20 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={isPC ? { 
-                delay: 0.6 + (index * 0.15), 
-                duration: 0.8,
+                delay: isMounted ? 0 : 0.6 + (index * 0.15), 
+                duration: isMounted ? 0.3 : 0.8,
                 ease: "easeOut"
               } : { duration: 0 }}
               whileHover={!isPC ? {} : { 
                 scale: 1.05, 
                 y: -5,
-                transition: { type: "spring", stiffness: 500, damping: 15 } 
+                transition: { type: "spring", stiffness: 600, damping: 20 } 
               }}
               whileTap={{ scale: 0.95 }}
             >

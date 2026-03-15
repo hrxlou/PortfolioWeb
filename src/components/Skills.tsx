@@ -9,10 +9,12 @@ const Skills = memo(() => {
   // 마우스 포인터 감지
   const [isPC, setIsPC] = useState(() => typeof window !== 'undefined' ? window.matchMedia('(pointer: fine)').matches : true);
 
+  const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     const mediaQuery = window.matchMedia('(pointer: fine)');
     const handleChange = (e: MediaQueryListEvent) => setIsPC(e.matches);
     mediaQuery.addEventListener('change', handleChange);
+    setIsMounted(true);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
@@ -41,14 +43,14 @@ const Skills = memo(() => {
                 animate={!isPC ? { opacity: 1, y: 0 } : {}}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={isPC ? { 
-                  duration: 0.6, 
-                  delay: 0.15 + (index * 0.1),
+                  duration: isMounted ? 0.3 : 0.6, 
+                  delay: isMounted ? 0 : 0.15 + (index * 0.1),
                   ease: "easeOut"
                 } : { duration: 0 }}
                 whileHover={!isPC ? {} : { 
                   y: -8, 
                   scale: 1.02,
-                  transition: { type: "spring", stiffness: 450, damping: 20 }
+                  transition: { type: "spring", stiffness: 500, damping: 25 }
                 }}
               >                <h3 className="skill-category">
                   {t(`skills.categories.${categoryKey}`)}
