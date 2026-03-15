@@ -61,7 +61,7 @@ const BackgroundEffects = () => {
 
       {/* Floating Mesh Blobs */}
       <motion.div
-        className="mesh-blob"
+        className="mesh-blob primary"
         style={{
           width: isMobile ? '300px' : '700px', // 모바일 400->300
           height: isMobile ? '300px' : '700px',
@@ -82,7 +82,7 @@ const BackgroundEffects = () => {
       />
 
       <motion.div
-        className="mesh-blob"
+        className="mesh-blob secondary"
         style={{
           width: isMobile ? '250px' : '600px', // 모바일 350->250
           height: isMobile ? '250px' : '600px',

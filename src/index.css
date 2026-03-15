@@ -68,8 +68,12 @@ html {
 }
 
 [data-theme='light'] .mesh-blob {
-  opacity: 0.25;
+  opacity: 0.2;
   mix-blend-mode: multiply;
+}
+
+[data-theme='light'] .mesh-blob.secondary {
+  display: none;
 }
 
 .spotlight {
