@@ -20,11 +20,11 @@ const FeaturedProject = ({ onOpenProject }: { onOpenProject: (project: any) => v
   return (
     <section id="featured" className="container">
       <motion.div
-        // 모바일에서는 y축 이동 0
-        initial={{ opacity: 0, y: isPC ? 40 : 0 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        // 모바일에서는 애니메이션 건너뜀
+        initial={isPC ? { opacity: 0, y: 40 } : false}
+        animate={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={isPC ? { duration: 0.8, ease: "easeOut" } : { duration: 0 }}
       >
         <h2>
           {t('projects.featuredTitle')} <span className="gradient-text">{t('projects.featuredSpan')}</span>

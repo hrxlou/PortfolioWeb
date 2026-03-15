@@ -28,15 +28,16 @@ const ProjectCard = ({ id, tags, index, image, link, onOpen }: ProjectCardProps 
   return (
     <motion.div
       className="glass card-inner"
-      // 모바일에서는 y축 이동 0으로 설정하여 깜빡임 원천 차단
-      initial={{ opacity: 0, y: isPC ? 30 : 0 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      // 모바일에서는 initial 애니메이션과 whileInView를 모두 건너뜀
+      initial={isPC ? { opacity: 0, y: 30 } : false}
+      whileInView={isPC ? { opacity: 1, y: 0 } : {}}
+      animate={!isPC ? { opacity: 1, y: 0 } : {}}
       viewport={{ once: true, amount: 0.1 }}
-      transition={{ 
+      transition={isPC ? { 
         duration: 0.8, 
-        delay: isPC ? index * 0.1 : index * 0.05, 
+        delay: index * 0.1, 
         ease: [0.16, 1, 0.3, 1] 
-      }}
+      } : { duration: 0 }}
       whileHover={!isPC ? {} : { 
         y: -15, 
         scale: 1.02,

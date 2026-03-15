@@ -30,10 +30,10 @@ const Hero = () => {
   return (
     <section id="hero" className="container hero-section">
       <motion.div
-        // 모바일(isPC false)일 때는 y축 이동 0
-        initial={{ opacity: 0, y: isPC ? 40 : 0 }}
+        // 모바일(isPC false)일 때는 initial 자체를 무시하도록 설정
+        initial={isPC ? { opacity: 0, y: 40 } : false}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+        transition={isPC ? { duration: 1.0, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
       >
         <div className="hero-content">
           <p className="gradient-text hero-tagline">
@@ -56,14 +56,14 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="glass social-item"
-              // 모바일에서는 y축 이동 없이 페이드인만
-              initial={{ opacity: 0, y: isPC ? 20 : 0 }}
+              // 모바일에서는 즉시 표시
+              initial={isPC ? { opacity: 0, y: 20 } : false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                delay: isPC ? 0.6 + (index * 0.15) : (index * 0.05), 
+              transition={isPC ? { 
+                delay: 0.6 + (index * 0.15), 
                 duration: 0.8,
                 ease: "easeOut"
-              }}
+              } : { duration: 0 }}
               whileHover={!isPC ? {} : { 
                 scale: 1.08, 
                 y: -8,

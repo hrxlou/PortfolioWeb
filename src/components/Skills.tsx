@@ -35,15 +35,16 @@ const Skills = () => {
               <motion.div
                 key={skillGroup.category}
                 className="glass skill-card"
-                // 모바일에서는 y축 이동 0으로 설정
-                initial={{ opacity: 0, y: isPC ? 30 : 0 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                // 모바일에서는 initial/whileInView 로직 무시
+                initial={isPC ? { opacity: 0, y: 30 } : false}
+                whileInView={isPC ? { opacity: 1, y: 0 } : {}}
+                animate={!isPC ? { opacity: 1, y: 0 } : {}}
                 viewport={{ once: true, amount: 0.1 }}
-                transition={{ 
+                transition={isPC ? { 
                   duration: 0.6, 
-                  delay: isPC ? 0.15 + (index * 0.1) : (index * 0.05),
+                  delay: 0.15 + (index * 0.1),
                   ease: "easeOut"
-                }}
+                } : { duration: 0 }}
                 whileHover={!isPC ? {} : { y: -10, scale: 1.02 }}
               >                <h3 className="skill-category">
                   {t(`skills.categories.${categoryKey}`)}
