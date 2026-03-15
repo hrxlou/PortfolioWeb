@@ -111,16 +111,11 @@ nav {
   z-index: 100;
   padding: 1.2rem 0;
   transition: var(--transition-smooth);
-}
+  background: var(--glass-bg) !important;
 
-.fixed-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 1.2rem 0;
-  transition: var(--transition-smooth);
+  /* 👇 여기도 세트로 추가! */
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
 }
 
 .nav-container {

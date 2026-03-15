@@ -50,7 +50,6 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
 
   if (!project) return null;
 
-  // Get translated content based on project.id
   const projectsI18n = (translations[language] as any)?.projects?.items || {};
   const projectI18n = projectsI18n[project.id] || {
     title: project.title,
@@ -71,6 +70,12 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
         >
           <motion.div
             className="modal-content-wrapper"
+            style={{
+              /* 배포 서버에서도 블러가 유지되도록 인라인 스타일 강제 주입 */
+              background: 'var(--glass-bg)',
+              WebkitBackdropFilter: 'blur(25px)',
+              backdropFilter: 'blur(25px)',
+            }}
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
