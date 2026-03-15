@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, useSpring, useMotionValue } from 'framer-motion';
 
 const BackgroundEffects = ({ theme }: { theme: 'dark' | 'light' }) => {
+  const [isMobile, setIsMobile] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -10,50 +11,71 @@ const BackgroundEffects = ({ theme }: { theme: 'dark' | 'light' }) => {
   const springY = useSpring(mouseY, { damping: 50, stiffness: 200 });
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const handleMouseMove = (e: MouseEvent) => {
-      // Offset by half of spotlight size (600px / 2 = 300)
-      mouseX.set(e.clientX - 300);
-      mouseY.set(e.clientY - 300);
+      if (!isMobile) {
+        // Offset by half of spotlight size (600px / 2 = 300)
+        mouseX.set(e.clientX - 300);
+        mouseY.set(e.clientY - 300);
+      }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    if (!isMobile) {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
 
     return () => {
+      window.removeEventListener('resize', checkMobile);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isMobile]);
 
   return (
     <div className="bg-effects-container">
       {/* Noise Filter Overlay */}
       <div className="noise-overlay" />
 
-      {/* Interactive Spotlight (Option 3) */}
+      {/* Interactive Spotlight / Mobile Floating Light */}
       <motion.div 
         className="spotlight"
-        style={{
+        style={!isMobile ? {
           x: springX,
           y: springY,
-        }}
+        } : {}}
+        animate={isMobile ? {
+          x: ['-10%', '30%', '-20%', '10%'],
+          y: ['-10%', '10%', '20%', '-5%'],
+          scale: [1, 1.2, 0.9, 1.1],
+        } : {}}
+        transition={isMobile ? {
+          duration: 15,
+          repeat: Infinity,
+          ease: "easeInOut",
+        } : {}}
       />
 
-      {/* Floating Mesh Blobs (Option 1) */}
+      {/* Floating Mesh Blobs */}
       <motion.div
         className="mesh-blob"
         style={{
-          width: '600px',
-          height: '600px',
+          width: isMobile ? '400px' : '700px',
+          height: isMobile ? '400px' : '700px',
           background: 'var(--accent-color)',
-          top: '10%',
+          top: '5%',
           right: '5%',
         }}
         animate={{
-          x: [0, 50, 0],
-          y: [0, 100, 0],
+          x: [0, 80, 0],
+          y: [0, 150, 0],
           scale: [1, 1.2, 1],
         }}
         transition={{
-          duration: 20,
+          duration: 25,
           repeat: Infinity,
           ease: "easeInOut"
         }}
@@ -62,44 +84,22 @@ const BackgroundEffects = ({ theme }: { theme: 'dark' | 'light' }) => {
       <motion.div
         className="mesh-blob"
         style={{
-          width: '500px',
-          height: '500px',
+          width: isMobile ? '350px' : '600px',
+          height: isMobile ? '350px' : '600px',
           background: 'var(--accent-secondary)',
-          bottom: '15%',
-          left: '10%',
+          bottom: '10%',
+          left: '5%',
         }}
         animate={{
-          x: [0, -70, 0],
-          y: [0, -50, 0],
-          scale: [1, 1.1, 1],
+          x: [0, -100, 0],
+          y: [0, -70, 0],
+          scale: [1, 1.15, 1],
         }}
         transition={{
-          duration: 15,
+          duration: 20,
           repeat: Infinity,
           ease: "easeInOut",
           delay: 2
-        }}
-      />
-
-      {/* Extra subtle blobs for depth */}
-      <motion.div
-        className="mesh-blob"
-        style={{
-          width: '400px',
-          height: '400px',
-          background: theme === 'dark' ? '#4f46e5' : '#818cf8',
-          top: '40%',
-          left: '30%',
-          opacity: 0.1,
-        }}
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.05, 0.1, 0.05],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut",
         }}
       />
     </div>

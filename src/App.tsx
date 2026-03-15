@@ -69,6 +69,12 @@ function App() {
   });
 
   useEffect(() => {
+    // Scroll to top on refresh
+    window.scrollTo(0, 0);
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
       setTheme(e.matches ? 'dark' : 'light');

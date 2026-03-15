@@ -4,6 +4,7 @@ import { motion, useSpring, useMotionValue } from 'framer-motion';
 const CustomCursor = ({ theme }: { theme?: 'dark' | 'light' }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -13,6 +14,15 @@ const CustomCursor = ({ theme }: { theme?: 'dark' | 'light' }) => {
   const cursorY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
+    // Check if device has a fine pointer (mouse)
+    const isTouchDevice = !window.matchMedia('(pointer: fine)').matches;
+    if (isTouchDevice) {
+      setIsVisible(false);
+      return;
+    }
+    
+    setIsVisible(true);
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -53,6 +63,8 @@ const CustomCursor = ({ theme }: { theme?: 'dark' | 'light' }) => {
       window.removeEventListener('mouseup', handleMouseUp);
     };
   }, [mouseX, mouseY]);
+
+  if (!isVisible) return null;
 
   return (
     <>

@@ -61,30 +61,30 @@ html {
 .mesh-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.15;
+  filter: blur(120px);
+  opacity: 0.2;
   mix-blend-mode: soft-light;
   will-change: transform;
 }
 
 [data-theme='light'] .mesh-blob {
-  opacity: 0.08;
+  opacity: 0.12;
 }
 
 .spotlight {
   position: fixed;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0) 70%);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0) 70%);
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
-  filter: blur(50px);
+  filter: blur(60px);
   mix-blend-mode: screen;
 }
 
 [data-theme='light'] .spotlight {
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, rgba(99, 102, 241, 0) 70%);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0) 70%);
   mix-blend-mode: multiply;
 }
 
@@ -984,8 +984,8 @@ section h2 {
   background-color: rgba(99, 102, 241, 0.05);
 }
 
-@media (hover: hover) and (pointer: fine) {
-
+/* PC 환경(마우스)에서만 기본 커서를 숨김 */
+@media (pointer: fine) {
   html,
   body,
   * {
