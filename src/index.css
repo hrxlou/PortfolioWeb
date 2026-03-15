@@ -539,7 +539,7 @@ section h2 {
 
 .floating-controls {
   position: fixed;
-  bottom: 2rem;
+  bottom: calc(2rem + env(safe-area-inset-bottom));
   right: 2rem;
   display: flex;
   flex-direction: column;
@@ -689,7 +689,7 @@ section h2 {
   }
 
   .theme-toggle-btn {
-    bottom: 1.5rem !important;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom)) !important;
     right: 1.5rem !important;
     width: 48px !important;
     height: 48px !important;
