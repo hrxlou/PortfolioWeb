@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
