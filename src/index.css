@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
 html, body, #root {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
   height: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   min-height: -webkit-fill-available;
-  margin: 0;
-  padding: 0;
+  background-color: var(--bg-color) !important;
 }
 
 html {
@@ -39,6 +41,7 @@ html {
 .main-layout {
   background-color: var(--bg-color);
   min-height: 100dvh;
+  min-height: -webkit-fill-available;
   transition: background-color 0.3s ease;
   padding-bottom: env(safe-area-inset-bottom);
 }
