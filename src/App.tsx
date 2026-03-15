@@ -66,7 +66,7 @@ function App() {
   });
 
   useEffect(() => {
-    // Scroll to top on refresh
+    // Scroll to top only on initial mount (refresh)
     window.scrollTo(0, 0);
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
@@ -78,9 +78,11 @@ function App() {
     };
 
     mediaQuery.addEventListener('change', handleChange);
-    document.documentElement.setAttribute('data-theme', theme);
-    
     return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
