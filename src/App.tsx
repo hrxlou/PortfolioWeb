@@ -5,7 +5,7 @@ import { TranslationProvider, useTranslation } from './i18n';
 import CustomCursor from './components/CustomCursor';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import FloatingControls from './components/FloatingControls';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioData } from './data/portfolioData';
 import Skeleton from './components/Skeleton';
 
@@ -35,22 +35,25 @@ function MainContent({ theme, toggleTheme }: { theme: 'dark' | 'light', toggleTh
         theme={theme} 
         onNavClick={() => {}}
       >
-        <motion.div
-          key={language}
-          initial={false} // 초기 렌더링 시에는 애니메이션 생략 (깜빡임 방지)
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <Hero />
-          <Suspense fallback={<div className="container" style={{ padding: '100px 0' }}><Skeleton height="400px" borderRadius="24px" /></div>}>
-            <div id="featured">
-              <FeaturedProject onOpenProject={handleOpenProject} />
-            </div>
-            <Skills />
-            <PortfolioGrid onOpenProject={handleOpenProject} />
-            <Contact />
-          </Suspense>
-        </motion.div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={language}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            <Hero />
+            <Suspense fallback={<div className="container" style={{ padding: '100px 0' }}><Skeleton height="400px" borderRadius="24px" /></div>}>
+              <div id="featured">
+                <FeaturedProject onOpenProject={handleOpenProject} />
+              </div>
+              <Skills />
+              <PortfolioGrid onOpenProject={handleOpenProject} />
+              <Contact />
+            </Suspense>
+          </motion.div>
+        </AnimatePresence>
 
         <Suspense fallback={null}>
           <ProjectModal 

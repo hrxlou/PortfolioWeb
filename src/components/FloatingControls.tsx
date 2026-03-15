@@ -15,7 +15,7 @@ const FloatingControls = ({ theme, toggleTheme }: FloatingControlsProps) => {
   };
 
   return (
-    <div className="floating-controls">
+    <div className="floating-controls" style={{ gap: '0.8rem', bottom: '1.5rem', right: '1.5rem' }}>
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
