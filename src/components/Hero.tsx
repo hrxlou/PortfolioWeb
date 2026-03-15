@@ -13,19 +13,19 @@ const Hero = () => {
     <section id="hero" className="container hero-section">
       {/* 1. 메인 컨테이너 애니메이션 (최초 로딩용) */}
       <motion.div
-        initial={{ opacity: 0, y: isMobile ? 10 : 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        initial={{ opacity: 0, scale: isMobile ? 0.98 : 1, y: isMobile ? 0 : 30 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         {/* 2. 텍스트 영역: 언어 전환 시 깜빡임 방지용 AnimatePresence */}
         <AnimatePresence mode="wait">
           <motion.div
             key={language}
-            initial={{ opacity: 0, y: isMobile ? 0 : 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: isMobile ? 0 : -10 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
           >
             <p className="gradient-text hero-tagline">
               {t('hero.tagline')}

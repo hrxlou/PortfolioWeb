@@ -10,17 +10,15 @@ interface NavbarProps {
 const Navbar = ({ onNavClick, theme }: NavbarProps) => {
   const { t } = useTranslation();
 
-  // 초기값을 null로 설정하여 첫 렌더링 시의 불필요한 레이아웃 계산을 방지하거나, 
-  // 클라이언트 사이드에서 즉시 확인하도록 수정
-  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+  // 초기 상태를 안전하게 시작 (flicker 방지)
+  const [isMobile, setIsMobile] = useState<boolean>(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
-
-    handleResize();
-    handleScroll();
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleScroll);
@@ -44,9 +42,6 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
   const blurEffect = 'blur(12px) saturate(180%)';
   const shadowEffect = theme === 'dark' ? '0 4px 30px rgba(0, 0, 0, 0.4)' : '0 4px 20px rgba(0, 0, 0, 0.08)';
 
-  // 모바일 여부가 결정되기 전에는 기본적으로 투명하게 유지하여 깜빡임 방지
-  if (isMobile === null) return null;
-
   const isBarMode = !isMobile && isScrolled;
 
   return (
@@ -63,13 +58,15 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
         backdropFilter: isBarMode ? blurEffect : 'none',
         borderBottom: isBarMode ? `1px solid ${glassBorder}` : 'none',
         boxShadow: isBarMode ? shadowEffect : 'none',
+        opacity: isMounted ? 1 : 0, // 마운트 전에는 숨김
       }}
     >
       <div className="container nav-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <motion.a
           href="#hero"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={{ opacity: isMounted ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
           className="gradient-text nav-logo"
         >
           Hyun's Space
@@ -80,7 +77,7 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: isMobile ? '0.85rem' : '1.5rem',
+            gap: isMobile ? '0.8rem' : '1.5rem',
             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
             padding: isBarMode ? '0' : '0.5rem 1.1rem',
             borderRadius: isBarMode ? '0' : '100px',
@@ -90,8 +87,9 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
             backdropFilter: isBarMode ? 'none' : blurEffect,
             boxShadow: isBarMode ? 'none' : shadowEffect,
           }}
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: isMobile ? 0.95 : 1 }}
+          animate={{ opacity: isMounted ? 1 : 0, scale: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
           {navLinks.map((item) => (
             <a
