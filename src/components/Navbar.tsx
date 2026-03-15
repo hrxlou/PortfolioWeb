@@ -1,56 +1,28 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from '../i18n';
 
 interface NavbarProps {
-  onNavClick: () => void;
+  onNavClick: (id: string) => void;
   theme: 'dark' | 'light';
 }
 
 const Navbar = ({ onNavClick, theme }: NavbarProps) => {
-  const [scrolled, setScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(() => 
-    typeof window !== 'undefined' ? window.innerWidth <= 768 : false
-  );
+  const { t } = useTranslation();
 
-  // [IMPORTANT] Vercel 배포 시 CSS Minification 이슈로 인해 
-  // 내비게이션의 투명도 및 블러(backdropFilter) 스타일이 유실되는 현상이 있습니다.
-  // 이를 방지하기 위해 스타일을 반드시 아래와 같이 '리터럴(Literal)' 및 '인라인'으로 유지해야 합니다.
-  // CSS 변수(var) 사용 시 빌드 과정에서 값이 꼬일 수 있으므로 직접적인 RGBA 값을 사용합니다.
-  const glassBg = theme === 'dark' ? 'rgba(26, 28, 34, 0.75)' : 'rgba(255, 255, 255, 0.85)';
-  const glassBorder = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(15, 23, 42, 0.15)';
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  const navItems = [
-    { name: 'Home', href: '#hero' },
-    { name: 'Projects', href: '#featured' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Works', href: '#portfolio' },
-    { name: 'Contact', href: '#contact' },
+  const navLinks = [
+    { name: t('nav.home'), id: 'hero' },
+    { name: t('nav.featured'), id: 'featured' },
+    { name: t('nav.skills'), id: 'skills' },
+    { name: t('nav.portfolio'), id: 'portfolio' },
+    { name: t('nav.contact'), id: 'contact' },
   ];
 
   return (
     <nav
       className="fixed-nav"
       style={{
-        padding: scrolled ? '0.7rem 0' : '1.2rem 0',
-        /* 모바일에서는 항상 투명하게 유지하여 네모 바 제거 */
-        background: (scrolled && !isMobile) ? glassBg : 'transparent',
-        backdropFilter: (scrolled && !isMobile) ? 'blur(15px) saturate(180%)' : 'none',
-        WebkitBackdropFilter: (scrolled && !isMobile) ? 'blur(15px) saturate(180%)' : 'none',
-        borderBottom: (scrolled && !isMobile) ? `1px solid ${glassBorder}` : 'none',
-        boxShadow: (scrolled && !isMobile) ? '0 10px 30px rgba(0, 0, 0, 0.2)' : 'none',
+        padding: '1.2rem 0',
+        background: 'transparent',
         transition: 'all 0.3s ease',
         zIndex: 100,
       }}
@@ -68,15 +40,12 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
         <motion.div
           className="nav-menu"
           style={{
-            /* [IMPORTANT] Vercel 배포 시 CSS Minification 이슈 방지를 위해 리터럴 스타일 사용 */
-            /* 모바일(!isMobile가 false일 때)에서는 스크롤 여부와 상관없이 항상 배경 유지 */
-            background: (scrolled && !isMobile) ? 'transparent' : glassBg,
-            border: (scrolled && !isMobile) ? 'none' : `1px solid ${glassBorder}`,
-            backdropFilter: (scrolled && !isMobile) ? 'none' : 'blur(12px) saturate(180%)',
-            WebkitBackdropFilter: (scrolled && !isMobile) ? 'none' : 'blur(12px) saturate(180%)',
-            boxShadow: (scrolled && !isMobile) ? 'none' : '0 4px 30px rgba(0, 0, 0, 0.2)',
+            background: theme === 'dark' ? 'rgba(26, 28, 34, 0.75)' : 'rgba(255, 255, 255, 0.85)',
+            border: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(15, 23, 42, 0.15)'}`,
+            backdropFilter: 'blur(12px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.2)',
             transition: 'all 0.3s ease',
-            /* 모바일에서도 알약 모양 유지 */
             borderRadius: '100px',
             display: 'flex',
             alignItems: 'center',
@@ -84,8 +53,8 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          {navItems.map((item) => (
-            <a key={item.name} href={item.href} onClick={onNavClick} className="nav-link">
+          {navLinks.map((item) => (
+            <a key={item.name} href={`#${item.id}`} onClick={() => onNavClick(item.id)} className="nav-link">
               {item.name}
             </a>
           ))}

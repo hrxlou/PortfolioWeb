@@ -5,6 +5,10 @@ import PortfolioGrid from './components/PortfolioGrid';
 import Contact from './components/Contact';
 import Skills from './components/Skills';
 import Layout from './components/Layout';
+import { TranslationProvider } from './i18n';
+import CustomCursor from './components/CustomCursor';
+import ScrollProgressBar from './components/ScrollProgressBar';
+import FloatingControls from './components/FloatingControls';
 
 function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -31,19 +35,23 @@ function App() {
   };
 
   return (
-    <Layout 
-      theme={theme} 
-      toggleTheme={toggleTheme} 
-      onNavClick={() => {}}
-    >
-      <Hero />
-      <div id="featured">
-        <FeaturedProject />
-      </div>
-      <Skills />
-      <PortfolioGrid />
-      <Contact />
-    </Layout>
+    <TranslationProvider>
+      <ScrollProgressBar />
+      <CustomCursor theme={theme} />
+      <FloatingControls theme={theme} toggleTheme={toggleTheme} />
+      <Layout 
+        theme={theme} 
+        onNavClick={() => {}}
+      >
+        <Hero />
+        <div id="featured">
+          <FeaturedProject />
+        </div>
+        <Skills />
+        <PortfolioGrid />
+        <Contact />
+      </Layout>
+    </TranslationProvider>
   );
 }
 

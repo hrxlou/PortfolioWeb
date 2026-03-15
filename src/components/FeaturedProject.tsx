@@ -1,9 +1,14 @@
-import ProjectImage from './ProjectImage';
 import { motion } from 'framer-motion';
+import ProjectImage from './ProjectImage';
+import { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
+import ProjectModal from './ProjectModal';
+import { useTranslation } from '../i18n';
 
 const FeaturedProject = () => {
   const { featuredProjects } = portfolioData;
+  const [selectedProject, setSelectedProject] = useState<typeof featuredProjects[0] | null>(null);
+  const { t } = useTranslation();
 
   return (
     <section id="featured" className="container">
@@ -14,52 +19,74 @@ const FeaturedProject = () => {
         transition={{ duration: 0.8 }}
       >
         <h2>
-          Featured <span className="gradient-text">Projects</span>
+          {t('projects.featuredTitle')} <span className="gradient-text">{t('projects.featuredSpan')}</span>
         </h2>
         
         <div className="project-card-grid">
-          {featuredProjects.map((project, index) => (
-            <div key={index} className="glass project-card-inner">
-              <div className="project-content">
-                <span className="featured-label gradient-text">{project.label}</span>
-                <h3 className="featured-title">{project.title}</h3>
-                
-                <div className="project-info-group">
-                  <h4 className="project-section-title">아이디어 (구현 의도)</h4>
-                  <p className="project-text">{project.problem}</p>
-                </div>
-                
-                <div className="project-info-group large">
-                  <h4 className="project-section-title alt">구현 방법</h4>
-                  <p className="project-text">{project.solution}</p>
-                </div>
-                
-                <div className="tech-list">
-                  {project.techStack?.map(tech => (
-                    <span key={tech} className="project-badge">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              
-              {project.image ? (
-                <ProjectImage 
-                  image={project.image} 
-                  title={project.title} 
-                  link={project.link} 
-                />
-              ) : (
-                <div className="project-image-container">
-                  <div className="image-placeholder">
-                    Project Preview
+          {featuredProjects.map((project, index) => {
+            const projectKey = project.id;
+            return (
+              <div 
+                key={index} 
+                className="glass project-card-inner"
+                style={{ cursor: 'pointer' }}
+                onClick={() => setSelectedProject(project)}
+              >
+                <div className="project-content">
+                  <span className="featured-label gradient-text">
+                    {t(`projects.items.${projectKey}.label`)}
+                  </span>
+                  <h3 className="featured-title">
+                    {t(`projects.items.${projectKey}.title`)}
+                  </h3>
+                  
+                  <div className="project-info-group">
+                    <h4 className="project-section-title">{t('projects.idea')}</h4>
+                    <p className="project-text">
+                      {t(`projects.items.${projectKey}.problem`)}
+                    </p>
+                  </div>
+                  
+                  <div className="project-info-group large">
+                    <h4 className="project-section-title alt">{t('projects.solution')}</h4>
+                    <p className="project-text">
+                      {t(`projects.items.${projectKey}.solution`)}
+                    </p>
+                  </div>
+                  
+                  <div className="tech-list">
+                    {project.techStack?.map((tech) => (
+                      <span key={tech} className="project-badge">
+                        {tech}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              )}
-            </div>
-          ))}
+                
+                {project.image ? (
+                  <ProjectImage 
+                    image={project.image} 
+                    title={t(`projects.items.${projectKey}.title`)} 
+                    link={project.link} 
+                  />
+                ) : (
+                  <div className="project-image-container">
+                    <div className="image-placeholder">
+                      Project Preview
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </motion.div>
+
+      <ProjectModal 
+        project={selectedProject}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 };

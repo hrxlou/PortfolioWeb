@@ -1,21 +1,18 @@
 import type { ReactNode } from 'react';
 import Navbar from './Navbar';
-import ThemeToggle from './ThemeToggle';
 import BackgroundEffects from './BackgroundEffects';
 
 interface LayoutProps {
   children: ReactNode;
   theme: 'dark' | 'light';
-  toggleTheme: () => void;
   onNavClick?: () => void;
 }
 
-const Layout = ({ children, theme, toggleTheme, onNavClick }: LayoutProps) => {
+const Layout = ({ children, theme, onNavClick }: LayoutProps) => {
   return (
     <main className="main-layout">
       <BackgroundEffects theme={theme} />
       <Navbar theme={theme} onNavClick={onNavClick || (() => {})} />
-      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       
       <div className="content-relative">
         {children}

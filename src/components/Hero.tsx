@@ -2,10 +2,11 @@ import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 import SocialIcon from './SocialIcon';
+import { useTranslation } from '../i18n';
 
 const Hero = () => {
-  const { name, tagline, description } = portfolioData.personal;
   const { social } = portfolioData;
+  const { t } = useTranslation();
 
   return (
     <section id="hero" className="container hero-section">
@@ -22,7 +23,7 @@ const Hero = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          {tagline}
+          {t('hero.tagline')}
         </motion.p>
         <motion.h1 
           className="hero-title"
@@ -31,8 +32,8 @@ const Hero = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          안녕하세요, <br />
-          저는 <span className="gradient-text">{name}</span>입니다.
+          {t('hero.greeting')} <br />
+          {t('hero.iam')} <span className="gradient-text">{t('personal.name')}</span>{t('hero.suffix')}
         </motion.h1>
         <motion.p 
           className="hero-description"
@@ -41,7 +42,7 @@ const Hero = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          {description}
+          {t('hero.description')}
         </motion.p>
         
         <motion.div 

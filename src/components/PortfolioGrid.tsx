@@ -1,53 +1,14 @@
-import ProjectImage from './ProjectImage';
+import { useState } from 'react';
+import ProjectCard from './ProjectCard';
 import { motion } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
-
-interface ProjectCardProps {
-  title: string;
-  description?: string;
-  tags?: string[];
-  index: number;
-  image?: string;
-  link?: string;
-}
-
-const ProjectCard = ({ title, description, tags, index, image, link }: ProjectCardProps) => (
-  <motion.div
-    className="glass card-inner"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: index * 0.1 }}
-    whileHover={{ y: -10, transition: { duration: 0.2 } }}
-  >
-    {image ? (
-      <ProjectImage 
-        image={image} 
-        title={title} 
-        link={link || '#'} 
-        isSmall 
-        iconSize={16} 
-      />
-    ) : (
-      <div className="project-image-container small">
-        <div className="image-placeholder">Preview</div>
-      </div>
-    )}
-    <div className="card-content">
-      <h3 className="card-title">{title}</h3>
-      <p className="card-description">{description}</p>
-      <div className="card-tags">
-        {tags?.map(tag => (
-          <span key={tag} className="card-tag">#{tag}</span>
-        ))}
-      </div>
-    </div>
-  </motion.div>
-);
-
+import ProjectModal from './ProjectModal';
+import { useTranslation } from '../i18n';
 
 const PortfolioGrid = () => {
   const { projects } = portfolioData;
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const { t } = useTranslation();
 
   return (
     <section id="portfolio" className="container">
@@ -58,14 +19,25 @@ const PortfolioGrid = () => {
         transition={{ duration: 0.8 }}
       >
         <h2>
-          My <span className="gradient-text">Works</span>
+          {t('projects.worksTitle')} <span className="gradient-text">{t('projects.worksSpan')}</span>
         </h2>
         <div className="portfolio-grid">
           {projects.map((project, index) => (
-            <ProjectCard key={index} {...project} index={index} />
+            <ProjectCard 
+              key={index} 
+              {...project} 
+              index={index} 
+              onOpen={() => setSelectedProject(project)}
+            />
           ))}
         </div>
       </motion.div>
+
+      <ProjectModal 
+        project={selectedProject}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 };

@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import { Mail, Send } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
+import { useTranslation } from '../i18n';
 
 const Contact = () => {
   const { email } = portfolioData.personal;
-  const { message, emailLabel } = portfolioData.contact;
+  const { t } = useTranslation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,8 +25,8 @@ const Contact = () => {
         className="glass contact-container"
       >
         <div className="contact-header">
-          <h2><span className="gradient-text">Contact</span> Me</h2>
-          <p>{message}</p>
+          <h2><span className="gradient-text">{t('contact.title')}</span> {t('contact.span')}</h2>
+          <p>{t('contact.message')}</p>
         </div>
 
         <div className="contact-grid">
@@ -35,7 +36,7 @@ const Contact = () => {
                 <Mail size={28} />
               </div>
               <div>
-                <p className="contact-info-label">{emailLabel}</p>
+                <p className="contact-info-label">{t('contact.emailLabel')}</p>
                 <p className="contact-info-value">{email}</p>
               </div>
             </div>
@@ -45,13 +46,13 @@ const Contact = () => {
             <input
               name="name"
               type="text"
-              placeholder="Your Name"
+              placeholder={t('contact.placeholderName')}
               required
               className="contact-input"
             />
             <textarea
               name="message"
-              placeholder="Your Message"
+              placeholder={t('contact.placeholderMessage')}
               rows={5}
               required
               className="contact-textarea"
@@ -62,7 +63,7 @@ const Contact = () => {
               whileTap={{ scale: 0.98 }}
               className="contact-submit"
             >
-              Send Message <Send size={20} />
+              {t('contact.submit')} <Send size={20} />
             </motion.button>
           </form>
         </div>
