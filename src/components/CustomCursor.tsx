@@ -70,6 +70,10 @@ const CustomCursor = ({ theme }: { theme?: 'dark' | 'light' }) => {
     <>
       <motion.div
         className="custom-cursor-dot"
+        animate={{
+          scale: isClicked ? 0.5 : 1,
+        }}
+        transition={{ type: "spring", stiffness: 500, damping: 28 }}
         style={{
           x: mouseX,
           y: mouseY,
@@ -80,12 +84,11 @@ const CustomCursor = ({ theme }: { theme?: 'dark' | 'light' }) => {
       <motion.div
         className="custom-cursor-ring"
         animate={{
-          scale: isHovered ? 1.5 : 1,
-          opacity: isClicked ? 0.5 : 1,
+          scale: isClicked ? 0.9 : (isHovered ? 1.6 : 1),
+          opacity: isClicked ? 0.8 : 1,
           width: isHovered ? 60 : 32,
           height: isHovered ? 60 : 32,
-          // Light mode adjustment via theme prop if needed, 
-          // though CSS classes [data-theme='light'] handle most of it.
+          borderWidth: isClicked ? '3px' : '2px',
           borderColor: theme === 'light' ? 'var(--accent-color)' : 'var(--accent-color)',
         }}
         style={{
