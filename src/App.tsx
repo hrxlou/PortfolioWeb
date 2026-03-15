@@ -8,8 +8,6 @@ import Layout from './components/Layout';
 
 function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
-    if (savedTheme) return savedTheme;
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
       return 'light';
     }
@@ -17,8 +15,15 @@ function App() {
   });
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      setTheme(e.matches ? 'dark' : 'light');
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, [theme]);
 
   const toggleTheme = () => {
