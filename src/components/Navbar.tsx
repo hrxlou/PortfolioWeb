@@ -49,7 +49,8 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
         top: 0, left: 0, right: 0,
         zIndex: 100,
         padding: isBarMode ? '0.8rem 0' : (isMobile ? '0.7rem 0' : '1.2rem 0'),
-        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        // all 대신 특정 속성만 지정하여 깜빡임 방지
+        transition: 'padding 0.4s ease, background 0.4s ease, border 0.4s ease, box-shadow 0.4s ease',
         background: isBarMode ? glassBg : 'transparent',
         WebkitBackdropFilter: isBarMode ? blurEffect : 'none',
         backdropFilter: isBarMode ? blurEffect : 'none',
@@ -68,7 +69,8 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
             display: 'flex',
             alignItems: 'center',
             gap: isMobile ? '0.8rem' : '1.5rem',
-            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            // 메뉴 부분도 필요한 속성에만 트랜지션 적용
+            transition: 'padding 0.4s ease, background 0.4s ease, gap 0.4s ease',
             padding: isBarMode ? '0' : '0.5rem 1.1rem',
             borderRadius: isBarMode ? '0' : '100px',
             background: isBarMode ? 'transparent' : glassBg,

@@ -28,9 +28,9 @@ const Hero = () => {
   return (
     <section id="hero" className="container hero-section">
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+        initial={isMobile ? false : { opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="hero-content">
           <p className="gradient-text hero-tagline">
@@ -53,9 +53,9 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="glass social-item"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 + (index * 0.1) }}
+              initial={isMobile ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: isMobile ? 0 : 0.5 + (index * 0.1) }}
               whileHover={isMobile ? {} : { scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
             >

@@ -34,7 +34,7 @@ function MainContent({ theme, toggleTheme }: { theme: 'dark' | 'light', toggleTh
       >
         <motion.div
           key={language}
-          initial={{ opacity: 0 }}
+          initial={false} // 초기 렌더링 시에는 애니메이션 생략 (깜빡임 방지)
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
