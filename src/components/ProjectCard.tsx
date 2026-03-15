@@ -14,14 +14,16 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ id, tags, index, image, link, onOpen }: ProjectCardProps & { id: string }) => {
   const { t } = useTranslation();
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+
   return (
     <motion.div
       className="glass card-inner"
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.05 }} // 딜레이 단축
-      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+      transition={{ duration: 0.5, delay: index * (isMobile ? 0.05 : 0.1) }}
+      whileHover={isMobile ? {} : { y: -10, transition: { duration: 0.2 } }}
       style={{ cursor: 'pointer' }}
       onClick={onOpen}
     >

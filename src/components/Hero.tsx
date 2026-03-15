@@ -7,12 +7,13 @@ import { useTranslation } from '../i18n';
 const Hero = () => {
   const { social } = portfolioData;
   const { t, language } = useTranslation();
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
 
   return (
     <section id="hero" className="container hero-section">
       {/* 1. 메인 컨테이너 애니메이션 (최초 로딩용) */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: isMobile ? 10 : 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -21,9 +22,9 @@ const Hero = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={language}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: isMobile ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: isMobile ? 0 : -10 }}
             transition={{ duration: 0.3 }}
           >
             <p className="gradient-text hero-tagline">
@@ -48,12 +49,12 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="glass social-item"
-              initial={{ opacity: 0, y: 5 }}
+              initial={{ opacity: 0, y: isMobile ? 5 : 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.5 + (index * 0.05), duration: 0.5 }} // 간격 단축
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              transition={{ delay: 0.5 + (index * (isMobile ? 0.05 : 0.1)), duration: 0.6 }}
+              whileHover={isMobile ? {} : { scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <SocialIcon name={item.name} />
               {item.name}

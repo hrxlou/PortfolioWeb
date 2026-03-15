@@ -5,6 +5,7 @@ import { useTranslation } from '../i18n';
 const Skills = () => {
   const { skills } = portfolioData;
   const { t } = useTranslation();
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
 
   return (
     <section id="skills" className="container">
@@ -25,10 +26,10 @@ const Skills = () => {
               <motion.div
                 key={skillGroup.category}
                 className="glass skill-card"
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
+                transition={{ duration: 0.5, delay: index * (isMobile ? 0.05 : 0.1) }}
               >
                 <h3 className="skill-category">
                   {t(`skills.categories.${categoryKey}`)}

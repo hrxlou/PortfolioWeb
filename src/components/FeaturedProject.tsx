@@ -6,11 +6,12 @@ import { useTranslation } from '../i18n';
 const FeaturedProject = ({ onOpenProject }: { onOpenProject: (project: any) => void }) => {
   const { featuredProjects } = portfolioData;
   const { t } = useTranslation();
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
 
   return (
     <section id="featured" className="container">
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: isMobile ? 10 : 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
