@@ -176,3 +176,17 @@ export const translations = {
     }
   }
 };
+export const getTranslation = (lang: Language, path: string): any => {
+  const keys = path.split('.');
+  let result: any = translations[lang];
+  
+  for (const key of keys) {
+    if (result && typeof result === 'object' && key in result) {
+      result = result[key];
+    } else {
+      return path;
+    }
+  }
+  
+  return result !== undefined ? result : path;
+};
