@@ -18,10 +18,10 @@ const Contact = () => {
   return (
     <section id="contact" className="container">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 1.0 }}
         className="glass contact-container"
       >
         <div className="contact-header">
