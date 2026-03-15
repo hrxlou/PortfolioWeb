@@ -25,10 +25,10 @@ const Skills = () => {
               <motion.div
                 key={skillGroup.category}
                 className="glass skill-card"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
               >
                 <h3 className="skill-category">
                   {t(`skills.categories.${categoryKey}`)}

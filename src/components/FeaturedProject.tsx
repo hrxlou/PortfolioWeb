@@ -10,7 +10,7 @@ const FeaturedProject = ({ onOpenProject }: { onOpenProject: (project: any) => v
   return (
     <section id="featured" className="container">
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
