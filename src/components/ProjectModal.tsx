@@ -109,12 +109,12 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
 
                 <div className="modal-grid">
                   <div className="modal-main-content">
-                    <section className="modal-section">
+                    <div className="modal-section">
                       <h3 className="modal-section-title">{t('projects.overview')}</h3>
                       <p className="modal-text">{projectI18n.overview}</p>
-                    </section>
+                    </div>
 
-                    <section className="modal-section">
+                    <div className="modal-section">
                       <h3 className="modal-section-title">{t('projects.challenges')}</h3>
                       <div className="modal-list">
                         {projectI18n.challenges?.map((text: string, i: number) => (
@@ -124,9 +124,9 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                           </div>
                         ))}
                       </div>
-                    </section>
+                    </div>
 
-                    <section className="modal-section">
+                    <div className="modal-section">
                       <h3 className="modal-section-title">{t('projects.learnings')}</h3>
                       <div className="modal-list">
                         {projectI18n.learnings?.map((text: string, i: number) => (
@@ -136,7 +136,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                           </div>
                         ))}
                       </div>
-                    </section>
+                    </div>
                   </div>
 
                   <aside className="modal-sidebar">

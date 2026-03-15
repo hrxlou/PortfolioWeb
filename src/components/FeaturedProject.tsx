@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ProjectImage from './ProjectImage';
 import { portfolioData } from '../data/portfolioData';
