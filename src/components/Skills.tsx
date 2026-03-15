@@ -5,14 +5,20 @@ import { useTranslation } from '../i18n';
 const Skills = () => {
   const { skills } = portfolioData;
   const { t } = useTranslation();
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return <section id="skills" className="container" style={{ opacity: 0 }} />;
 
   return (
     <section id="skills" className="container">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
       >
         <h2>
@@ -26,10 +32,10 @@ const Skills = () => {
               <motion.div
                 key={skillGroup.category}
                 className="glass skill-card"
-                initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * (isMobile ? 0.05 : 0.1) }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <h3 className="skill-category">
                   {t(`skills.categories.${categoryKey}`)}

@@ -7,15 +7,22 @@ import { useTranslation } from '../i18n';
 const Hero = () => {
   const { social } = portfolioData;
   const { t } = useTranslation();
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
+  if (!isMounted) return <section id="hero" className="container hero-section" style={{ opacity: 0 }} />;
 
   return (
     <section id="hero" className="container hero-section">
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.0, ease: "easeOut" }}
+        initial={{ opacity: 0, y: isMobile ? 0 : 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="hero-content">
           <p className="gradient-text hero-tagline">

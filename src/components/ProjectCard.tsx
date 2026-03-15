@@ -14,15 +14,19 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ id, tags, index, image, link, onOpen }: ProjectCardProps & { id: string }) => {
   const { t } = useTranslation();
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   return (
     <motion.div
       className="glass card-inner"
-      initial={{ opacity: 0, scale: isMobile ? 0.96 : 1, y: isMobile ? 0 : 20 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true, margin: isMobile ? "0px" : "-100px" }}
-      transition={{ duration: 0.5, delay: index * (isMobile ? 0.05 : 0.1), ease: "easeOut" }}
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: index * 0.05, ease: "easeOut" }}
       whileHover={isMobile ? {} : { y: -10, transition: { duration: 0.2 } }}
       style={{ cursor: 'pointer' }}
       onClick={onOpen}
