@@ -1,13 +1,10 @@
-import { useState } from 'react';
 import ProjectCard from './ProjectCard';
 import { motion } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
-import ProjectModal from './ProjectModal';
 import { useTranslation } from '../i18n';
 
-const PortfolioGrid = () => {
+const PortfolioGrid = ({ onOpenProject }: { onOpenProject: (project: any) => void }) => {
   const { projects } = portfolioData;
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const { t } = useTranslation();
 
   return (
@@ -27,17 +24,11 @@ const PortfolioGrid = () => {
               key={index} 
               {...project} 
               index={index} 
-              onOpen={() => setSelectedProject(project)}
+              onOpen={() => onOpenProject(project)}
             />
           ))}
         </div>
       </motion.div>
-
-      <ProjectModal 
-        project={selectedProject}
-        isOpen={!!selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
     </section>
   );
 };

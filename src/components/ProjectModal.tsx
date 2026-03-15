@@ -29,9 +29,14 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
   const { t, language } = useTranslation();
 
   useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+
     if (isOpen) {
       document.body.classList.add('modal-open');
       document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleEsc);
     } else {
       document.body.classList.remove('modal-open');
       document.body.style.overflow = 'auto';
@@ -39,8 +44,9 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
     return () => {
       document.body.classList.remove('modal-open');
       document.body.style.overflow = 'auto';
+      window.removeEventListener('keydown', handleEsc);
     };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   if (!project) return null;
 
@@ -56,14 +62,14 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div 
+        <motion.div
           className="modal-overlay"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
         >
-          <motion.div 
+          <motion.div
             className="modal-content-wrapper"
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -75,10 +81,12 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
             </button>
 
             <div className="modal-scroll-area">
-              <div className="modal-hero-image">
-                <img src={project.image} alt={projectI18n.title} loading="lazy" />
-                <div className="modal-image-overlay" />
-              </div>
+              {project.image && (
+                <div className="modal-hero-image">
+                  <img src={project.image} alt={projectI18n.title} loading="lazy" />
+                  <div className="modal-image-overlay" />
+                </div>
+              )}
 
               <div className="modal-body">
                 <div className="modal-header">
@@ -131,7 +139,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                       <h4 className="modal-sidebar-title">Tech Stack</h4>
                       <div className="modal-tech-tags">
                         {project.techStack?.map((tech: string) => (
-                          <span key={tech} className="card-tag">{tech}</span>
+                          <span key={tech} className="modal-tag">{tech}</span>
                         ))}
                       </div>
                     </div>

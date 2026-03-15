@@ -8,7 +8,7 @@ const CustomCursor = ({ theme }: { theme?: 'dark' | 'light' }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { damping: 25, stiffness: 200, restDelta: 0.001 };
+  const springConfig = { damping: 40, stiffness: 400, restDelta: 0.001 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 

@@ -1,13 +1,10 @@
 import { motion } from 'framer-motion';
 import ProjectImage from './ProjectImage';
-import { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
-import ProjectModal from './ProjectModal';
 import { useTranslation } from '../i18n';
 
-const FeaturedProject = () => {
+const FeaturedProject = ({ onOpenProject }: { onOpenProject: (project: any) => void }) => {
   const { featuredProjects } = portfolioData;
-  const [selectedProject, setSelectedProject] = useState<typeof featuredProjects[0] | null>(null);
   const { t } = useTranslation();
 
   return (
@@ -30,7 +27,7 @@ const FeaturedProject = () => {
                 key={index} 
                 className="glass project-card-inner"
                 style={{ cursor: 'pointer' }}
-                onClick={() => setSelectedProject(project)}
+                onClick={() => onOpenProject(project)}
               >
                 <div className="project-content">
                   <span className="featured-label gradient-text">
@@ -81,12 +78,6 @@ const FeaturedProject = () => {
           })}
         </div>
       </motion.div>
-
-      <ProjectModal 
-        project={selectedProject}
-        isOpen={!!selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
     </section>
   );
 };

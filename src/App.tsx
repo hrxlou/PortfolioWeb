@@ -5,10 +5,60 @@ import PortfolioGrid from './components/PortfolioGrid';
 import Contact from './components/Contact';
 import Skills from './components/Skills';
 import Layout from './components/Layout';
-import { TranslationProvider } from './i18n';
+import { TranslationProvider, useTranslation } from './i18n';
 import CustomCursor from './components/CustomCursor';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import FloatingControls from './components/FloatingControls';
+import { motion, AnimatePresence } from 'framer-motion';
+import ProjectModal from './components/ProjectModal';
+import { portfolioData } from './data/portfolioData';
+
+type Project = typeof portfolioData.projects[0];
+
+function MainContent({ theme, toggleTheme }: { theme: 'dark' | 'light', toggleTheme: () => void }) {
+  const { language } = useTranslation();
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const handleOpenProject = (project: Project) => {
+    setSelectedProject(project);
+  };
+
+  return (
+    <>
+      <ScrollProgressBar />
+      <CustomCursor theme={theme} />
+      <FloatingControls theme={theme} toggleTheme={toggleTheme} />
+      <Layout 
+        theme={theme} 
+        onNavClick={() => {}}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={language}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <Hero />
+            <div id="featured">
+              <FeaturedProject onOpenProject={handleOpenProject} />
+            </div>
+            <Skills />
+            <PortfolioGrid onOpenProject={handleOpenProject} />
+            <Contact />
+          </motion.div>
+        </AnimatePresence>
+
+        <ProjectModal 
+          project={selectedProject}
+          isOpen={!!selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      </Layout>
+    </>
+  );
+}
 
 function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -36,21 +86,7 @@ function App() {
 
   return (
     <TranslationProvider>
-      <ScrollProgressBar />
-      <CustomCursor theme={theme} />
-      <FloatingControls theme={theme} toggleTheme={toggleTheme} />
-      <Layout 
-        theme={theme} 
-        onNavClick={() => {}}
-      >
-        <Hero />
-        <div id="featured">
-          <FeaturedProject />
-        </div>
-        <Skills />
-        <PortfolioGrid />
-        <Contact />
-      </Layout>
+      <MainContent theme={theme} toggleTheme={toggleTheme} />
     </TranslationProvider>
   );
 }

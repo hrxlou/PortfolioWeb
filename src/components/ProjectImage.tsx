@@ -40,6 +40,7 @@ const ProjectImage = ({ image, title, link, isSmall = false, iconSize = 18 }: Pr
           rel="noopener noreferrer" 
           className="project-link-icon"
           title="Visit Project"
+          onClick={(e) => e.stopPropagation()}
         >
           <ExternalLink size={iconSize} />
         </a>

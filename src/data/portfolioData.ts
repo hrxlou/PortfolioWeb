@@ -71,7 +71,7 @@ export const portfolioData: PortfolioData = {
       techStack: ["React", "TypeScript", "Next.js", "Firebase"],
       link: "https://github.com/hrxlou/familyWebsite",
       details: {
-        overview: "단순한 SNS를 넘어 가족 구성원들이 소중한 순간을 기록하고 공유할 수 있는 프라이빗한 플랫폼입니다.",
+        overview: "단순한 채팅을 넘어 가족들이 소중한 순간을 기록하고 공유할 수 있는 프라이빗한 플랫폼입니다.",
         challenges: [
           "Firebase를 활용한 실시간 데이터 동기화 구현",
           "다양한 기기에서의 반응형 캘린더 드래그 앤 드롭 구현",

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 import SocialIcon from './SocialIcon';
@@ -6,59 +6,52 @@ import { useTranslation } from '../i18n';
 
 const Hero = () => {
   const { social } = portfolioData;
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   return (
     <section id="hero" className="container hero-section">
+      {/* 1. 메인 컨테이너 애니메이션 (최초 로딩용) */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <motion.p 
-          className="gradient-text hero-tagline"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        >
-          {t('hero.tagline')}
-        </motion.p>
-        <motion.h1 
-          className="hero-title"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-        >
-          {t('hero.greeting')} <br />
-          {t('hero.iam')} <span className="gradient-text">{t('personal.name')}</span>{t('hero.suffix')}
-        </motion.h1>
-        <motion.p 
-          className="hero-description"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-        >
-          {t('hero.description')}
-        </motion.p>
-        
-        <motion.div 
-          className="social-links"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-        >
-          {social.map((item) => (
-            <motion.a 
+        {/* 2. 텍스트 영역: 언어 전환 시 깜빡임 방지용 AnimatePresence */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={language}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <p className="gradient-text hero-tagline">
+              {t('hero.tagline')}
+            </p>
+            <h1 className="hero-title">
+              {t('hero.greeting')} <br />
+              {t('hero.iam')} <span className="gradient-text">{t('personal.name')}</span>{t('hero.suffix')}
+            </h1>
+            <p className="hero-description">
+              {t('hero.description')}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* 3. 소셜 링크: 기존 위치 그대로 유지 (AnimatePresence 밖이 아닌, 원래의 flex flow 안에 배치) */}
+        <div className="social-links">
+          {social.map((item, index) => (
+            <motion.a
               key={item.name}
-              href={item.url} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="glass social-item"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 + (index * 0.1), duration: 0.6 }} // 버튼들이 순차적으로 나타남
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -66,11 +59,11 @@ const Hero = () => {
               {item.name}
             </motion.a>
           ))}
-        </motion.div>
+        </div>
       </motion.div>
 
-      {/* Scroll Down Indicator */}
-      <motion.div 
+      {/* 스크롤 인디케이터 */}
+      <motion.div
         className="scroll-indicator"
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 0.6, 0] }}
