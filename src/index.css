@@ -10,18 +10,19 @@ html, body, #root {
   background-color: var(--bg-color) !important;
   /* 스크롤 바운스 시 시스템 배경색 노출 방지 (Nuclear Option 2) */
   background: var(--bg-color) !important;
+  background-attachment: fixed !important;
 }
 
 /* Background Bleed: 뷰포트 위아래를 넘어서 배경색을 확장하여 사파리 빈틈 차단 (Nuclear Option 3) */
 body::before {
   content: '';
   position: fixed;
-  top: -50vh;
+  top: -100vh; /* 더 넓게 확장 */
   left: 0;
   width: 100vw;
-  height: 200vh;
+  height: 300vh;
   background-color: var(--bg-color);
-  z-index: -1;
+  z-index: -10; /* 최하단 배치 */
   pointer-events: none;
   transition: background-color 0.3s ease;
 }
@@ -191,9 +192,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
   touch-action: manipulation;
-  /* 모바일 스크롤 바운스 시 기본색 노출 허용 (시스템 바 동기화용) */
-  overscroll-behavior-y: auto;
+  /* 모바일 스크롤 바운스 완전 차단 (Super Nuclear Option) */
+  overscroll-behavior-y: none;
   position: relative;
+  background-attachment: fixed !important;
 }
 
 /* 애니메이션 성능 최적화 */
