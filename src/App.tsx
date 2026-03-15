@@ -1,17 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import Hero from './components/Hero';
-import FeaturedProject from './components/FeaturedProject';
-import PortfolioGrid from './components/PortfolioGrid';
-import Contact from './components/Contact';
-import Skills from './components/Skills';
 import Layout from './components/Layout';
 import { TranslationProvider, useTranslation } from './i18n';
 import CustomCursor from './components/CustomCursor';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import FloatingControls from './components/FloatingControls';
 import { motion } from 'framer-motion';
-import ProjectModal from './components/ProjectModal';
 import { portfolioData } from './data/portfolioData';
+import Skeleton from './components/Skeleton';
+
+// Lazy loaded components
+const FeaturedProject = lazy(() => import('./components/FeaturedProject'));
+const PortfolioGrid = lazy(() => import('./components/PortfolioGrid'));
+const Contact = lazy(() => import('./components/Contact'));
+const Skills = lazy(() => import('./components/Skills'));
+const ProjectModal = lazy(() => import('./components/ProjectModal'));
 
 type Project = typeof portfolioData.projects[0];
 
@@ -39,19 +42,23 @@ function MainContent({ theme, toggleTheme }: { theme: 'dark' | 'light', toggleTh
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <Hero />
-          <div id="featured">
-            <FeaturedProject onOpenProject={handleOpenProject} />
-          </div>
-          <Skills />
-          <PortfolioGrid onOpenProject={handleOpenProject} />
-          <Contact />
+          <Suspense fallback={<div className="container" style={{ padding: '100px 0' }}><Skeleton height="400px" borderRadius="24px" /></div>}>
+            <div id="featured">
+              <FeaturedProject onOpenProject={handleOpenProject} />
+            </div>
+            <Skills />
+            <PortfolioGrid onOpenProject={handleOpenProject} />
+            <Contact />
+          </Suspense>
         </motion.div>
 
-        <ProjectModal 
-          project={selectedProject}
-          isOpen={!!selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
+        <Suspense fallback={null}>
+          <ProjectModal 
+            project={selectedProject}
+            isOpen={!!selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        </Suspense>
       </Layout>
     </>
   );

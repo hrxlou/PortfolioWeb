@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { motion } from 'framer-motion';
 import ProjectImage from './ProjectImage';
 import { useTranslation } from '../i18n';
@@ -13,7 +13,7 @@ interface ProjectCardProps {
   onOpen: () => void;
 }
 
-const ProjectCard = ({ id, tags, index, image, link, onOpen }: ProjectCardProps & { id: string }) => {
+const ProjectCard = memo(({ id, tags, index, image, link, onOpen }: ProjectCardProps & { id: string }) => {
   const { t } = useTranslation();
   // 마우스 포인터 감지
   const [isPC, setIsPC] = useState(() => typeof window !== 'undefined' ? window.matchMedia('(pointer: fine)').matches : true);
@@ -70,6 +70,6 @@ const ProjectCard = ({ id, tags, index, image, link, onOpen }: ProjectCardProps 
       </div>
     </motion.div>
   );
-};
+});
 
 export default ProjectCard;

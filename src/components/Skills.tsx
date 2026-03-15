@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { motion } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
 import { useTranslation } from '../i18n';
 
-const Skills = () => {
+const Skills = memo(() => {
   const { skills } = portfolioData;
   const { t } = useTranslation();
   // 마우스 포인터 감지
@@ -68,6 +68,6 @@ const Skills = () => {
       </motion.div>
     </section>
   );
-};
+});
 
 export default Skills;

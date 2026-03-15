@@ -33,6 +33,8 @@ const ProjectImage = ({ image, title, link, isSmall = false, iconSize = 18 }: Pr
           className="project-image"
           style={{ cursor: 'default', opacity: isLoaded ? 1 : 0 }}
           onLoad={() => setIsLoaded(true)}
+          decoding="async"
+          loading="lazy"
         />
         <a 
           href={link} 

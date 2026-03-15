@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Github, Instagram, ExternalLink, Mail } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -6,7 +7,7 @@ interface SocialIconProps {
   size?: number;
 }
 
-const SocialIcon = ({ name, size = 20 }: SocialIconProps) => {
+const SocialIcon = memo(({ name, size = 20 }: SocialIconProps) => {
   const iconMap: Record<string, LucideIcon> = {
     github: Github,
     instagram: Instagram,
@@ -18,6 +19,6 @@ const SocialIcon = ({ name, size = 20 }: SocialIconProps) => {
   const IconComponent = iconMap[name.toLowerCase()] || iconMap.default;
 
   return <IconComponent size={size} />;
-};
+});
 
 export default SocialIcon;

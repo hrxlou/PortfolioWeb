@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import ProjectCard from './ProjectCard';
 import { motion } from 'framer-motion';
 import { portfolioData } from '../data/portfolioData';
 import { useTranslation } from '../i18n';
 
-const PortfolioGrid = ({ onOpenProject }: { onOpenProject: (project: any) => void }) => {
+const PortfolioGrid = memo(({ onOpenProject }: { onOpenProject: (project: any) => void }) => {
   const { projects } = portfolioData;
   const { t } = useTranslation();
 
@@ -31,6 +32,6 @@ const PortfolioGrid = ({ onOpenProject }: { onOpenProject: (project: any) => voi
       </motion.div>
     </section>
   );
-};
+});
 
 export default PortfolioGrid;

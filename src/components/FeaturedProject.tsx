@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { motion } from 'framer-motion';
 import ProjectImage from './ProjectImage';
 import { portfolioData } from '../data/portfolioData';
 import { useTranslation } from '../i18n';
 
-const FeaturedProject = ({ onOpenProject }: { onOpenProject: (project: any) => void }) => {
+const FeaturedProject = memo(({ onOpenProject }: { onOpenProject: (project: any) => void }) => {
   const { featuredProjects } = portfolioData;
   const { t } = useTranslation();
   // 마우스 포인터 감지
@@ -91,6 +91,6 @@ const FeaturedProject = ({ onOpenProject }: { onOpenProject: (project: any) => v
       </motion.div>
     </section>
   );
-};
+});
 
 export default FeaturedProject;
