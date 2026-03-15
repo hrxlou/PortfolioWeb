@@ -32,11 +32,12 @@ const Navbar = ({ onNavClick }: NavbarProps) => {
       style={{
         padding: scrolled ? '0.7rem 0' : '1.2rem 0',
         /* index.css에 있는 --glass-bg 변수를 그대로 사용해 다크모드 완벽 호환 */
-        background: scrolled ? 'var(--glass-bg)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(15px) saturate(180%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(15px) saturate(180%)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--glass-border)' : 'none',
-        boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.2)' : 'none',
+        /* 모바일(window.innerWidth < 768)에서는 항상 투명하게 유지하여 네모 바 제거 */
+        background: (scrolled && typeof window !== 'undefined' && window.innerWidth > 768) ? 'var(--glass-bg)' : 'transparent',
+        backdropFilter: (scrolled && typeof window !== 'undefined' && window.innerWidth > 768) ? 'blur(15px) saturate(180%)' : 'none',
+        WebkitBackdropFilter: (scrolled && typeof window !== 'undefined' && window.innerWidth > 768) ? 'blur(15px) saturate(180%)' : 'none',
+        borderBottom: (scrolled && typeof window !== 'undefined' && window.innerWidth > 768) ? '1px solid var(--glass-border)' : 'none',
+        boxShadow: (scrolled && typeof window !== 'undefined' && window.innerWidth > 768) ? '0 10px 30px rgba(0, 0, 0, 0.2)' : 'none',
         transition: 'all 0.3s ease',
         zIndex: 100,
       }}
