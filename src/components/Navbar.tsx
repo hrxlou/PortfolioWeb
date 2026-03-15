@@ -7,6 +7,9 @@ interface NavbarProps {
 
 const Navbar = ({ onNavClick }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => 
+    typeof window !== 'undefined' ? window.innerWidth <= 768 : false
+  );
 
   // [IMPORTANT] Vercel 배포 시 CSS Minification 이슈로 인해 
   // 내비게이션의 투명도 및 블러(backdropFilter) 스타일이 유실되는 현상이 있습니다.
@@ -14,8 +17,15 @@ const Navbar = ({ onNavClick }: NavbarProps) => {
   // 성능 최적화나 리팩토링 목적으로 스타일을 CSS 클래스로 절대 옮기지 마세요.
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const navItems = [
@@ -32,12 +42,12 @@ const Navbar = ({ onNavClick }: NavbarProps) => {
       style={{
         padding: scrolled ? '0.7rem 0' : '1.2rem 0',
         /* index.css에 있는 --glass-bg 변수를 그대로 사용해 다크모드 완벽 호환 */
-        /* 모바일(window.innerWidth < 768)에서는 항상 투명하게 유지하여 네모 바 제거 */
-        background: (scrolled && typeof window !== 'undefined' && window.innerWidth > 768) ? 'var(--glass-bg)' : 'transparent',
-        backdropFilter: (scrolled && typeof window !== 'undefined' && window.innerWidth > 768) ? 'blur(15px) saturate(180%)' : 'none',
-        WebkitBackdropFilter: (scrolled && typeof window !== 'undefined' && window.innerWidth > 768) ? 'blur(15px) saturate(180%)' : 'none',
-        borderBottom: (scrolled && typeof window !== 'undefined' && window.innerWidth > 768) ? '1px solid var(--glass-border)' : 'none',
-        boxShadow: (scrolled && typeof window !== 'undefined' && window.innerWidth > 768) ? '0 10px 30px rgba(0, 0, 0, 0.2)' : 'none',
+        /* 모바일에서는 항상 투명하게 유지하여 네모 바 제거 */
+        background: (scrolled && !isMobile) ? 'var(--glass-bg)' : 'transparent',
+        backdropFilter: (scrolled && !isMobile) ? 'blur(15px) saturate(180%)' : 'none',
+        WebkitBackdropFilter: (scrolled && !isMobile) ? 'blur(15px) saturate(180%)' : 'none',
+        borderBottom: (scrolled && !isMobile) ? '1px solid var(--glass-border)' : 'none',
+        boxShadow: (scrolled && !isMobile) ? '0 10px 30px rgba(0, 0, 0, 0.2)' : 'none',
         transition: 'all 0.3s ease',
         zIndex: 100,
       }}
