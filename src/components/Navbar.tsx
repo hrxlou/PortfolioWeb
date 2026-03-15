@@ -9,17 +9,13 @@ interface NavbarProps {
 const Navbar = ({ onNavClick, theme }: NavbarProps) => {
   const { t } = useTranslation();
 
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  // 첫 렌더링 시점에 즉시 값을 할당하여 깜빡임 방지 (동기화)
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [isScrolled, setIsScrolled] = useState(() => window.scrollY > 20);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
-
-    handleResize();
-    handleScroll();
-    setIsMounted(true);
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleScroll);
@@ -59,8 +55,6 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
         backdropFilter: isBarMode ? blurEffect : 'none',
         borderBottom: isBarMode ? `1px solid ${glassBorder}` : 'none',
         boxShadow: isBarMode ? shadowEffect : 'none',
-        opacity: isMounted ? 1 : 0,
-        visibility: isMounted ? 'visible' : 'hidden',
       }}
     >
       <div className="container nav-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -82,7 +76,6 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
             WebkitBackdropFilter: isBarMode ? 'none' : blurEffect,
             backdropFilter: isBarMode ? 'none' : blurEffect,
             boxShadow: isBarMode ? 'none' : shadowEffect,
-            opacity: isMounted ? 1 : 0,
           }}
         >
           {navLinks.map((item) => (

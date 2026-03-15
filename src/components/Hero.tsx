@@ -8,15 +8,15 @@ import { useTranslation } from '../i18n';
 const Hero = () => {
   const { social } = portfolioData;
   const { t } = useTranslation();
-  const [isMounted, setIsMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  
+  // 첫 렌더링 시점에 즉시 화면 크기를 확인하여 깜빡임(Double render) 방지
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
 
   useEffect(() => {
-    setIsMounted(true);
-    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  if (!isMounted) return <section id="hero" className="container hero-section" style={{ opacity: 0 }} />;
 
   return (
     <section id="hero" className="container hero-section">

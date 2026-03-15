@@ -15,10 +15,13 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ id, tags, index, image, link, onOpen }: ProjectCardProps & { id: string }) => {
   const { t } = useTranslation();
-  const [isMobile, setIsMobile] = useState(false);
+  // 동기적 초기화
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (

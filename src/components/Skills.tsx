@@ -6,13 +6,6 @@ import { useTranslation } from '../i18n';
 const Skills = () => {
   const { skills } = portfolioData;
   const { t } = useTranslation();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) return <section id="skills" className="container" style={{ opacity: 0 }} />;
 
   return (
     <section id="skills" className="container">
