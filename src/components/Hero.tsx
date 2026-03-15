@@ -58,7 +58,7 @@ const Hero = () => {
               target="_blank" 
               rel="noopener noreferrer" 
               className="glass social-item"
-              whileHover={{ scale: 1.05, backgroundColor: 'var(--glass-bg)' }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <SocialIcon name={item.name} />
