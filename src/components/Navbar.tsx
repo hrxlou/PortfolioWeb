@@ -10,15 +10,15 @@ interface NavbarProps {
 const Navbar = ({ onNavClick, theme }: NavbarProps) => {
   const { t } = useTranslation();
 
-  const [isMobile, setIsMobile] = useState(false);
+  // 초기값을 null로 설정하여 첫 렌더링 시의 불필요한 레이아웃 계산을 방지하거나, 
+  // 클라이언트 사이드에서 즉시 확인하도록 수정
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // 화면 크기 & 스크롤 감지
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
 
-    // 초기 상태 세팅
     handleResize();
     handleScroll();
 
@@ -39,13 +39,14 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
     { name: t('nav.contact'), id: 'contact' },
   ];
 
-  // 테마별 디자인 변수 세팅 (라이트 모드에서도 잘 보이게 그림자 추가)
   const glassBg = theme === 'dark' ? 'rgba(15, 17, 21, 0.75)' : 'rgba(255, 255, 255, 0.85)';
   const glassBorder = theme === 'dark' ? 'rgba(255, 255, 255, 0.15)' : 'rgba(15, 23, 42, 0.1)';
   const blurEffect = 'blur(12px) saturate(180%)';
   const shadowEffect = theme === 'dark' ? '0 4px 30px rgba(0, 0, 0, 0.4)' : '0 4px 20px rgba(0, 0, 0, 0.08)';
 
-  // 띠(Bar) 모드 발동 조건: "모바일이 아니면서" AND "스크롤을 내렸을 때"
+  // 모바일 여부가 결정되기 전에는 기본적으로 투명하게 유지하여 깜빡임 방지
+  if (isMobile === null) return null;
+
   const isBarMode = !isMobile && isScrolled;
 
   return (
@@ -55,22 +56,20 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
         position: 'fixed',
         top: 0, left: 0, right: 0,
         zIndex: 100,
-        padding: isBarMode ? '0.8rem 0' : '1.2rem 0', // 띠 모드일 땐 얇게, 알약일 땐 넉넉하게
+        padding: isBarMode ? '0.8rem 0' : (isMobile ? '0.7rem 0' : '1.2rem 0'),
         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-
-        /* [전체 네비바] 띠(Bar) 모드일 때만 배경, 블러, 띠(테두리/그림자) 적용 */
         background: isBarMode ? glassBg : 'transparent',
         WebkitBackdropFilter: isBarMode ? blurEffect : 'none',
         backdropFilter: isBarMode ? blurEffect : 'none',
         borderBottom: isBarMode ? `1px solid ${glassBorder}` : 'none',
-        boxShadow: isBarMode ? shadowEffect : 'none', // 잃어버린 띠 그림자 복구!
+        boxShadow: isBarMode ? shadowEffect : 'none',
       }}
     >
       <div className="container nav-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <motion.a
           href="#hero"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           className="gradient-text nav-logo"
         >
           Hyun's Space
@@ -81,20 +80,18 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: isMobile ? '1rem' : '1.5rem',
+            gap: isMobile ? '0.85rem' : '1.5rem',
             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-
-            /* [메뉴 부분] 띠(Bar) 모드가 아닐 때(=알약 모드일 때) 개별 스타일 적용 */
-            padding: isBarMode ? '0' : '0.5rem 1.25rem',
+            padding: isBarMode ? '0' : '0.5rem 1.1rem',
             borderRadius: isBarMode ? '0' : '100px',
             background: isBarMode ? 'transparent' : glassBg,
             border: isBarMode ? 'none' : `1px solid ${glassBorder}`,
             WebkitBackdropFilter: isBarMode ? 'none' : blurEffect,
             backdropFilter: isBarMode ? 'none' : blurEffect,
-            boxShadow: isBarMode ? 'none' : shadowEffect, // 알약일 때의 그림자 복구!
+            boxShadow: isBarMode ? 'none' : shadowEffect,
           }}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
         >
           {navLinks.map((item) => (
             <a
