@@ -112,6 +112,19 @@ function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    
+    // iOS 사파리 시스템 UI 색상 동적 업데이트 (Nuclear Option 1)
+    const themeColor = theme === 'light' ? '#f8fafc' : '#0f1115';
+    let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute('content', themeColor);
+    } else {
+      metaThemeColor = document.createElement('meta');
+      metaThemeColor.setAttribute('name', 'theme-color');
+      metaThemeColor.setAttribute('content', themeColor);
+      document.head.appendChild(metaThemeColor);
+    }
   }, [theme]);
 
   const toggleTheme = () => {

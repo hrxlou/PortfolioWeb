@@ -8,8 +8,22 @@ html, body, #root {
   min-height: 100dvh;
   min-height: -webkit-fill-available;
   background-color: var(--bg-color) !important;
-  /* 스크롤 바운스 시 시스템 배경색 노출 방지 */
+  /* 스크롤 바운스 시 시스템 배경색 노출 방지 (Nuclear Option 2) */
   background: var(--bg-color) !important;
+}
+
+/* Background Bleed: 뷰포트 위아래를 넘어서 배경색을 확장하여 사파리 빈틈 차단 (Nuclear Option 3) */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50vh;
+  left: 0;
+  width: 100vw;
+  height: 200vh;
+  background-color: var(--bg-color);
+  z-index: -1;
+  pointer-events: none;
+  transition: background-color 0.3s ease;
 }
 
 html {
@@ -179,6 +193,7 @@ body {
   touch-action: manipulation;
   /* 모바일 스크롤 바운스 시 기본색 노출 허용 (시스템 바 동기화용) */
   overscroll-behavior-y: auto;
+  position: relative;
 }
 
 /* 애니메이션 성능 최적화 */
