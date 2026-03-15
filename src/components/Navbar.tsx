@@ -16,8 +16,8 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
   // 내비게이션의 투명도 및 블러(backdropFilter) 스타일이 유실되는 현상이 있습니다.
   // 이를 방지하기 위해 스타일을 반드시 아래와 같이 '리터럴(Literal)' 및 '인라인'으로 유지해야 합니다.
   // CSS 변수(var) 사용 시 빌드 과정에서 값이 꼬일 수 있으므로 직접적인 RGBA 값을 사용합니다.
-  const glassBg = theme === 'dark' ? 'rgba(28, 28, 30, 0.75)' : 'rgba(255, 255, 255, 0.85)';
-  const glassBorder = theme === 'dark' ? 'rgba(255, 255, 255, 0.15)' : 'rgba(15, 23, 42, 0.15)';
+  const glassBg = theme === 'dark' ? 'rgba(26, 28, 34, 0.75)' : 'rgba(255, 255, 255, 0.85)';
+  const glassBorder = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(15, 23, 42, 0.15)';
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
