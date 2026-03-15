@@ -68,7 +68,8 @@ html {
 }
 
 [data-theme='light'] .mesh-blob {
-  opacity: 0.15; /* 0.12에서 상향 */
+  opacity: 0.25;
+  mix-blend-mode: multiply;
 }
 
 .spotlight {

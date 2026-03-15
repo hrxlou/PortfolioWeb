@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Send } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
@@ -6,6 +7,16 @@ import { useTranslation } from '../i18n';
 const Contact = () => {
   const { email } = portfolioData.personal;
   const { t } = useTranslation();
+  
+  // 마우스 포인터 감지 (모바일 깜빡임 방지)
+  const [isPC, setIsPC] = useState(() => typeof window !== 'undefined' ? window.matchMedia('(pointer: fine)').matches : true);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(pointer: fine)');
+    const handleChange = (e: MediaQueryListEvent) => setIsPC(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,11 +29,12 @@ const Contact = () => {
   return (
     <section id="contact" className="container">
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1.0 }}
         className="glass contact-container"
+        initial={isPC ? { opacity: 0 } : { opacity: 1 }}
+        whileInView={isPC ? { opacity: 1 } : {}}
+        animate={!isPC ? { opacity: 1 } : {}}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={isPC ? { duration: 1.0 } : { duration: 0 }}
       >
         <div className="contact-header">
           <h2><span className="gradient-text">{t('contact.title')}</span> {t('contact.span')}</h2>
