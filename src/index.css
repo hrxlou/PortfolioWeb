@@ -59,11 +59,21 @@ html {
 
 .bg-effects-container {
   position: fixed;
-  inset: 0;
-  z-index: 0;
+  /* 1. 상단 노치와 하단 홈바 뒤쪽까지 배경을 강제로 확장 */
+  top: -10dvh;
+  left: 0;
+  right: 0;
+  height: 120dvh;
+
+  /* 2. 콘텐츠 뒤로 확실히 보내기 */
+  z-index: -1;
+
+  /* 3. 사파리 렌더링 방해 요소 제거 */
   pointer-events: none;
   overflow: hidden;
-  background-color: var(--bg-color);
+
+  /* 4. 배경색 삭제 (중요: 여기서 색을 칠하면 유리 효과가 죽습니다) */
+  background-color: transparent;
 }
 
 .noise-overlay {
