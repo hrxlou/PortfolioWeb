@@ -55,13 +55,18 @@ const Navbar = ({ onNavClick }: NavbarProps) => {
         <motion.div
           className="nav-menu"
           style={{
-            /* 스크롤 시 내부 메뉴 캡슐의 중복 배경을 투명하게 제거 */
+            /* [IMPORTANT] Vercel 배포 시 CSS Minification 이슈로 인해 알약(Pill) 메뉴의 backdropFilter와 background가 유실될 수 있습니다. */
+            /* 이를 방지하기 위해 로컬 스타일과 동일한 값을 인라인으로 강제 적용합니다. */
             background: scrolled ? 'transparent' : 'var(--glass-bg)',
             border: scrolled ? 'none' : '1px solid var(--glass-border)',
-            backdropFilter: scrolled ? 'none' : 'blur(10px)',
-            WebkitBackdropFilter: scrolled ? 'none' : 'blur(10px)',
+            backdropFilter: scrolled ? 'none' : 'blur(12px) saturate(180%)',
+            WebkitBackdropFilter: scrolled ? 'none' : 'blur(12px) saturate(180%)',
             boxShadow: scrolled ? 'none' : '0 4px 30px rgba(0, 0, 0, 0.2)',
             transition: 'all 0.3s ease',
+            /* 모바일에서도 알약 모양 유지 */
+            borderRadius: '100px',
+            display: 'flex',
+            alignItems: 'center',
           }}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
