@@ -103,21 +103,6 @@ nav {
   transition: all 0.3s ease;
 }
 
-.fixed-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 1.2rem 0;
-  transition: var(--transition-smooth);
-  background: var(--glass-bg) !important;
-
-  /* 👇 여기도 세트로 추가! */
-  -webkit-backdrop-filter: blur(12px) !important;
-  backdrop-filter: blur(12px) !important;
-}
-
 .nav-container {
   display: flex;
   justify-content: space-between;
@@ -130,39 +115,11 @@ nav {
   letter-spacing: -0.02em;
   white-space: nowrap;
   display: block;
-  /* Ensure visibility on PC */
 }
 
+/* TSX에서 디자인을 관리하므로 CSS에서는 기본 레이아웃 속성만 남김 */
 .nav-menu {
-  gap: 1.5rem;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  padding: 0.4rem 1.25rem;
   display: flex;
-  border-radius: 100px;
-  transition: var(--transition-smooth);
-}
-
-@media (min-width: 769px) {
-  .fixed-nav {
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--glass-border);
-    padding: 0.8rem 0 !important;
-  }
-
-  .nav-menu {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    padding: 0 !important;
-  }
 }
 
 .nav-link {
@@ -196,10 +153,8 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* macOS optimization */
   transition: background-color 0.3s ease, color 0.3s ease;
   touch-action: manipulation;
-  /* Faster touch interactions */
 }
 
 a {
@@ -207,7 +162,6 @@ a {
   color: inherit;
   transition: var(--transition-smooth);
   -webkit-tap-highlight-color: transparent;
-  /* Remove mobile tap highlight */
 }
 
 button {
@@ -218,7 +172,6 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Glassmorphism Utility - Optimized for performance */
 .glass {
   background: var(--glass-bg);
   backdrop-filter: blur(8px);
@@ -227,48 +180,39 @@ button {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  /* Deeper shadow */
   will-change: transform, backdrop-filter;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glass:hover {
   border-color: rgba(255, 255, 255, 0.15);
-  /* Brighten border on hover */
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
 }
-
 
 [data-theme='light'] .glass {
   box-shadow: 0 4px 30px rgba(15, 23, 42, 0.05);
 }
 
-/* Container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding-left: 4rem;
   padding-right: 4rem;
   width: 100%;
-  /* Ensure it doesn't exceed screen */
 }
 
-/* Fix for breaking layouts during resize */
 * {
   min-width: 0;
 }
 
-/* Gradient Text */
 .gradient-text {
   background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   white-space: nowrap;
-  /* Prevent gradient text from wrapping awkwardly */
 }
 
-/* Section Spacing & Headings */
 section {
   padding-top: var(--section-padding);
   padding-bottom: var(--section-padding);
@@ -358,7 +302,6 @@ section h2 {
   }
 }
 
-/* Wide Screen Optimization (1600px+) */
 @media (min-width: 1600px) {
   .container {
     max-width: 1500px;
@@ -369,7 +312,6 @@ section h2 {
   }
 }
 
-/* Ultra Wide / 4K Optimization (2000px+) */
 @media (min-width: 2000px) {
   .container {
     max-width: 1800px;
@@ -377,7 +319,6 @@ section h2 {
 
   html {
     font-size: 18px;
-    /* Scale up slightly for 4K */
   }
 
   section {
@@ -387,7 +328,6 @@ section h2 {
 
   .project-card-inner {
     grid-template-columns: 1fr 1fr;
-    /* Force 2 columns on ultra wide featured cards */
   }
 }
 
@@ -416,7 +356,6 @@ section h2 {
   }
 }
 
-/* Project Card Styles */
 .project-card-grid {
   display: flex;
   flex-direction: column;
@@ -553,7 +492,6 @@ section h2 {
   color: var(--accent-secondary);
 }
 
-/* Floating Controls */
 .floating-controls {
   position: fixed;
   bottom: 2rem;
@@ -603,7 +541,6 @@ section h2 {
 
 .theme-toggle-btn {
   display: none;
-  /* Replaced by FloatingControls */
 }
 
 .project-image-link {
@@ -657,7 +594,6 @@ section h2 {
   color: var(--accent-color);
 }
 
-/* Skills Grid */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -694,23 +630,7 @@ section h2 {
   }
 
   .nav-menu {
-    gap: 0.8rem !important;
-    padding: 0.4rem 1rem !important;
     width: auto;
-    /* 모바일에서는 스크롤 시에도 둥근 알약 스타일 강제 유지 */
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 100px;
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  }
-
-  .nav-scrolled {
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border-bottom: none !important;
   }
 
   .nav-link {
@@ -725,7 +645,6 @@ section h2 {
   }
 }
 
-/* Contact Styles */
 .contact-container {
   padding: clamp(2rem, 8vw, 5rem);
   max-width: 1000px;
@@ -803,7 +722,6 @@ section h2 {
   resize: vertical;
   transition: var(--transition-smooth);
   outline: none;
-  /* Preserving existing outline property */
 }
 
 .contact-submit {
@@ -834,7 +752,6 @@ section h2 {
   filter: brightness(1.1);
 }
 
-/* Modal Styles */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -930,7 +847,6 @@ section h2 {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.6) 100%);
 }
 
-/* Skeleton Loading */
 .skeleton {
   background: rgba(255, 255, 255, 0.05);
   position: relative;
@@ -975,7 +891,6 @@ section h2 {
   padding: 1rem 1.75rem;
 }
 
-/* Custom Cursor */
 .custom-cursor-dot {
   position: fixed;
   width: 8px;
@@ -984,8 +899,6 @@ section h2 {
   border-radius: 50%;
   pointer-events: none;
   z-index: 20000;
-  /* Removed mix-blend-mode to avoid color flickering on images */
-  /* mix-blend-mode: difference; */
   box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
 }
 
@@ -1002,8 +915,6 @@ section h2 {
   border-radius: 50%;
   pointer-events: none;
   z-index: 19999;
-  /* Reduced reliance on mix-blend-mode for consistent visibility */
-  /* mix-blend-mode: difference; */
   transition: width 0.3s, height 0.3s, border-color 0.3s;
 }
 
@@ -1044,9 +955,7 @@ section h2 {
   font-weight: 600;
   letter-spacing: 0.05em;
   display: block;
-  /* margin이 잘 먹도록 block으로 설정 */
   margin-bottom: -10px;
-  /* 마이너스 값을 주면 제목과 더 바짝 붙습니다! */
 }
 
 .modal-title {
@@ -1154,7 +1063,6 @@ section h2 {
   font-weight: 500;
 }
 
-/* Reset global section and heading styles inside modal */
 .modal-content-wrapper section {
   padding: 0 !important;
 }
@@ -1172,22 +1080,16 @@ section h2 {
 }
 
 @media (max-width: 768px) {
-
-  /* 섹션 사이의 간격 축소 */
   .modal-section {
     margin-bottom: 2rem !important;
-    /* PC 5rem -> 모바일 2rem */
   }
 
-  /* 아까 추가한 2번 방법(인접 형제 선택자)도 모바일에서 줄여줘야 합니다 */
   .modal-section+.modal-section {
     margin-top: 1.5rem !important;
   }
 
-  /* Key Learnings와 Tech Stack(사이드바) 사이의 간격 */
   .modal-grid {
     gap: 1.5rem !important;
-    /* 위아래로 쌓였을 때의 간격 */
   }
 
   .modal-overlay {
@@ -1203,7 +1105,6 @@ section h2 {
     margin-top: 0;
   }
 
-  /* Show everything else */
   body.modal-open .fixed-nav,
   body.modal-open .floating-controls {
     display: flex !important;
@@ -1237,7 +1138,6 @@ section h2 {
   }
 }
 
-/* Scroll Progress Bar */
 .scroll-progress-bar {
   position: fixed;
   top: 0;

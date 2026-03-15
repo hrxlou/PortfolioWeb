@@ -1,6 +1,6 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from '../i18n';
-import { useState, useEffect } from 'react';
 
 interface NavbarProps {
   onNavClick: (id: string) => void;
@@ -9,16 +9,26 @@ interface NavbarProps {
 
 const Navbar = ({ onNavClick, theme }: NavbarProps) => {
   const { t } = useTranslation();
-  const [isMobile, setIsMobile] = useState(false);
 
-  // 화면 크기 감지 로직
+  const [isMobile, setIsMobile] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // 화면 크기 & 스크롤 감지
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+
+    // 초기 상태 세팅
+    handleResize();
+    handleScroll();
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const navLinks = [
@@ -29,9 +39,14 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
     { name: t('nav.contact'), id: 'contact' },
   ];
 
-  // 테마별 색상 정의
-  const glassBg = theme === 'dark' ? 'rgba(15, 17, 21, 0.75)' : 'rgba(255, 255, 255, 0.75)';
+  // 테마별 디자인 변수 세팅 (라이트 모드에서도 잘 보이게 그림자 추가)
+  const glassBg = theme === 'dark' ? 'rgba(15, 17, 21, 0.75)' : 'rgba(255, 255, 255, 0.85)';
   const glassBorder = theme === 'dark' ? 'rgba(255, 255, 255, 0.15)' : 'rgba(15, 23, 42, 0.1)';
+  const blurEffect = 'blur(12px) saturate(180%)';
+  const shadowEffect = theme === 'dark' ? '0 4px 30px rgba(0, 0, 0, 0.4)' : '0 4px 20px rgba(0, 0, 0, 0.08)';
+
+  // 띠(Bar) 모드 발동 조건: "모바일이 아니면서" AND "스크롤을 내렸을 때"
+  const isBarMode = !isMobile && isScrolled;
 
   return (
     <nav
@@ -40,13 +55,15 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
         position: 'fixed',
         top: 0, left: 0, right: 0,
         zIndex: 100,
-        padding: isMobile ? '1.2rem 0' : '0.8rem 0', // 모바일일 때 여백 조정
-        transition: 'all 0.3s ease',
-        /* ✅ PC일 때만 전체 배경바 적용, 모바일은 투명 */
-        background: isMobile ? 'transparent' : glassBg,
-        WebkitBackdropFilter: isMobile ? 'none' : 'blur(12px) saturate(180%)',
-        backdropFilter: isMobile ? 'none' : 'blur(12px) saturate(180%)',
-        borderBottom: !isMobile ? `1px solid ${glassBorder}` : 'none',
+        padding: isBarMode ? '0.8rem 0' : '1.2rem 0', // 띠 모드일 땐 얇게, 알약일 땐 넉넉하게
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+
+        /* [전체 네비바] 띠(Bar) 모드일 때만 배경, 블러, 띠(테두리/그림자) 적용 */
+        background: isBarMode ? glassBg : 'transparent',
+        WebkitBackdropFilter: isBarMode ? blurEffect : 'none',
+        backdropFilter: isBarMode ? blurEffect : 'none',
+        borderBottom: isBarMode ? `1px solid ${glassBorder}` : 'none',
+        boxShadow: isBarMode ? shadowEffect : 'none', // 잃어버린 띠 그림자 복구!
       }}
     >
       <div className="container nav-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -55,7 +72,6 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="gradient-text nav-logo"
-          style={{ fontWeight: 700, fontSize: '1.2rem' }}
         >
           Hyun's Space
         </motion.a>
@@ -66,16 +82,16 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
             display: 'flex',
             alignItems: 'center',
             gap: isMobile ? '1rem' : '1.5rem',
-            padding: '0.5rem 1.25rem',
-            borderRadius: '100px',
-            transition: 'all 0.3s ease',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
 
-            /* ✅ 모바일일 때만 '알약' 스타일 적용, PC는 투명 */
-            background: isMobile ? glassBg : 'transparent',
-            border: isMobile ? `1px solid ${glassBorder}` : 'none',
-            WebkitBackdropFilter: isMobile ? 'blur(12px) saturate(180%)' : 'none',
-            backdropFilter: isMobile ? 'blur(12px) saturate(180%)' : 'none',
-            boxShadow: isMobile ? '0 4px 30px rgba(0, 0, 0, 0.2)' : 'none',
+            /* [메뉴 부분] 띠(Bar) 모드가 아닐 때(=알약 모드일 때) 개별 스타일 적용 */
+            padding: isBarMode ? '0' : '0.5rem 1.25rem',
+            borderRadius: isBarMode ? '0' : '100px',
+            background: isBarMode ? 'transparent' : glassBg,
+            border: isBarMode ? 'none' : `1px solid ${glassBorder}`,
+            WebkitBackdropFilter: isBarMode ? 'none' : blurEffect,
+            backdropFilter: isBarMode ? 'none' : blurEffect,
+            boxShadow: isBarMode ? 'none' : shadowEffect, // 알약일 때의 그림자 복구!
           }}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
