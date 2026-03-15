@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 import Navbar from './Navbar';
-import BackgroundEffects from './BackgroundEffects';
 
 interface LayoutProps {
   children: ReactNode;
@@ -11,7 +10,6 @@ interface LayoutProps {
 const Layout = ({ children, theme, onNavClick }: LayoutProps) => {
   return (
     <main className="main-layout">
-      <BackgroundEffects />
       <Navbar theme={theme} onNavClick={onNavClick || (() => {})} />
       
       <div className="content-relative">

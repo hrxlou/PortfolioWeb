@@ -8,6 +8,7 @@ import FloatingControls from './components/FloatingControls';
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioData } from './data/portfolioData';
 import Skeleton from './components/Skeleton';
+import BackgroundEffects from './components/BackgroundEffects';
 
 // Lazy loaded components
 const FeaturedProject = lazy(() => import('./components/FeaturedProject'));
@@ -48,6 +49,7 @@ function MainContent({ theme, toggleTheme }: { theme: 'dark' | 'light', toggleTh
       <ScrollProgressBar />
       <CustomCursor theme={theme} />
       <FloatingControls theme={theme} toggleTheme={toggleTheme} />
+      <BackgroundEffects />
       <Layout
         theme={theme}
         onNavClick={() => { }}
