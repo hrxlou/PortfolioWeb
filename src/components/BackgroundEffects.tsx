@@ -63,8 +63,8 @@ const BackgroundEffects = () => {
       <motion.div
         className="mesh-blob"
         style={{
-          width: isMobile ? '400px' : '700px',
-          height: isMobile ? '400px' : '700px',
+          width: isMobile ? '300px' : '700px', // 모바일 400->300
+          height: isMobile ? '300px' : '700px',
           background: 'var(--accent-color)',
           top: '5%',
           right: '5%',
@@ -84,8 +84,8 @@ const BackgroundEffects = () => {
       <motion.div
         className="mesh-blob"
         style={{
-          width: isMobile ? '350px' : '600px',
-          height: isMobile ? '350px' : '600px',
+          width: isMobile ? '250px' : '600px', // 모바일 350->250
+          height: isMobile ? '250px' : '600px',
           background: 'var(--accent-secondary)',
           bottom: '10%',
           left: '5%',

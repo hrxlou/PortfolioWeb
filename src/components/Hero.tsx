@@ -28,9 +28,9 @@ const Hero = () => {
   return (
     <section id="hero" className="container hero-section">
       <motion.div
-        initial={isMobile ? false : { opacity: 0, y: 20 }}
+        initial={isMobile ? false : { opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }} // 세련된 베지어 곡선
       >
         <div className="hero-content">
           <p className="gradient-text hero-tagline">
@@ -53,10 +53,18 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="glass social-item"
-              initial={isMobile ? false : { opacity: 0, y: 10 }}
+              initial={isMobile ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: isMobile ? 0 : 0.5 + (index * 0.1) }}
-              whileHover={isMobile ? {} : { scale: 1.05, y: -5 }}
+              transition={{ 
+                delay: isMobile ? 0 : 0.6 + (index * 0.15), 
+                duration: 0.8,
+                ease: "easeOut"
+              }}
+              whileHover={isMobile ? {} : { 
+                scale: 1.08, 
+                y: -8,
+                transition: { type: "spring", stiffness: 400, damping: 10 } 
+              }}
               whileTap={{ scale: 0.95 }}
             >
               <SocialIcon name={item.name} />

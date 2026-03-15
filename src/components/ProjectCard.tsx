@@ -27,11 +27,19 @@ const ProjectCard = ({ id, tags, index, image, link, onOpen }: ProjectCardProps 
   return (
     <motion.div
       className="glass card-inner"
-      initial={{ opacity: 0, y: isMobile ? 0 : 20 }}
+      initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: isMobile ? "0px" : "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.05, ease: "easeOut" }}
-      whileHover={isMobile ? {} : { y: -10, transition: { duration: 0.2 } }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ 
+        duration: 0.8, 
+        delay: index * (isMobile ? 0.05 : 0.1), 
+        ease: [0.16, 1, 0.3, 1] 
+      }}
+      whileHover={isMobile ? {} : { 
+        y: -15, 
+        scale: 1.02,
+        transition: { type: "spring", stiffness: 300, damping: 15 } 
+      }}
       style={{ cursor: 'pointer' }}
       onClick={onOpen}
     >

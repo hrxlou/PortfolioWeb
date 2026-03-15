@@ -28,6 +28,22 @@ html {
 }
 
 /* Layout Styles */
+/* 초기 등장 페이드인 효과 (CSS) */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content, .social-links {
+  animation: fadeIn 1.2s ease-out forwards;
+}
+
+@media (max-width: 768px) {
+  .hero-content, .social-links {
+    animation: fadeIn 0.8s ease-out forwards; /* 모바일은 조금 더 빠르게 */
+  }
+}
+
 .main-layout {
   background-color: var(--bg-color);
   min-height: 100vh;
@@ -62,20 +78,20 @@ html {
   position: absolute;
   border-radius: 50%;
   filter: blur(120px);
-  opacity: 0.2;
+  opacity: 0.3; /* 0.2에서 상향 */
   mix-blend-mode: soft-light;
   will-change: transform;
 }
 
 [data-theme='light'] .mesh-blob {
-  opacity: 0.12;
+  opacity: 0.15; /* 0.12에서 상향 */
 }
 
 .spotlight {
   position: fixed;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0) 70%);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0) 70%); /* 0.15에서 상향 */
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
