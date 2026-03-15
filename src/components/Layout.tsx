@@ -11,7 +11,7 @@ interface LayoutProps {
 const Layout = ({ children, theme, onNavClick }: LayoutProps) => {
   return (
     <main className="main-layout">
-      <BackgroundEffects theme={theme} />
+      <BackgroundEffects />
       <Navbar theme={theme} onNavClick={onNavClick || (() => {})} />
       
       <div className="content-relative">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, useSpring, useMotionValue } from 'framer-motion';
 
-const BackgroundEffects = ({ theme }: { theme: 'dark' | 'light' }) => {
+const BackgroundEffects = () => {
   const [isMobile, setIsMobile] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
