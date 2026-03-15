@@ -22,7 +22,7 @@ html {
   --font-main: 'Outfit', sans-serif;
   --image-opacity: 0.9;
 
-  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
   --nav-padding: 1.2rem;
   --section-padding: 100px;
 }
@@ -30,7 +30,7 @@ html {
 /* Layout Styles */
 .main-layout {
   background-color: var(--bg-color);
-  min-height: 100vh;
+  min-height: 100dvh;
   transition: background-color 0.3s ease;
 }
 
@@ -62,7 +62,8 @@ html {
   position: absolute;
   border-radius: 50%;
   filter: blur(120px);
-  opacity: 0.3; /* 0.2에서 상향 */
+  opacity: 0.3;
+  /* 0.2에서 상향 */
   mix-blend-mode: soft-light;
   will-change: transform;
 }
@@ -80,7 +81,8 @@ html {
   position: fixed;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0) 70%); /* 0.15에서 상향 */
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0) 70%);
+  /* 0.15에서 상향 */
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
@@ -165,13 +167,14 @@ body {
 }
 
 /* 애니메이션 성능 최적화 */
-.glass, 
+.glass,
 .nav-menu,
 .project-card-inner,
 .card-inner,
 .social-item {
   will-change: transform, opacity;
-  transform: translateZ(0); /* GPU 가속 강제 */
+  transform: translateZ(0);
+  /* GPU 가속 강제 */
 }
 
 @media (max-width: 768px) {
@@ -179,7 +182,7 @@ body {
     /* 모바일에서 탭 하이라이트 제거 및 빠른 반응 */
     -webkit-tap-highlight-color: transparent;
   }
-  
+
   .glass {
     /* 모바일에서는 블러 강도를 살짝 낮춰 성능 확보 */
     backdrop-filter: blur(8px);
@@ -190,7 +193,7 @@ body {
 a {
   text-decoration: none;
   color: inherit;
-  transition: var(--transition-smooth);
+  transition: opacity 0.2s ease, color 0.2s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -211,7 +214,7 @@ button {
   overflow: hidden;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   will-change: transform, backdrop-filter;
-  transition: var(--transition-smooth);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .glass:hover {
@@ -267,7 +270,7 @@ section h2 {
 }
 
 .hero-section {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   position: relative;
@@ -846,7 +849,8 @@ section h2 {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4); /* 더 연하게 변경 */
+  background: rgba(0, 0, 0, 0.4);
+  /* 더 연하게 변경 */
   z-index: 5000;
   display: flex;
   align-items: center;
@@ -902,6 +906,7 @@ section h2 {
 
 /* PC 환경(마우스)에서만 기본 커서를 숨김 */
 @media (pointer: fine) {
+
   html,
   body,
   * {
@@ -921,7 +926,7 @@ section h2 {
 .modal-content-wrapper {
   width: 100%;
   max-width: 1000px;
-  max-height: 88vh;
+  max-height: 88dvh;
   background: var(--glass-bg);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
@@ -1051,13 +1056,15 @@ section h2 {
 }
 
 .modal-section {
-  margin-bottom: 1.25rem; /* 1.5rem에서 축소 */
+  margin-bottom: 1.25rem;
+  /* 1.5rem에서 축소 */
 }
 
 .modal-section-title {
   font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 0.4rem; /* 0.5rem에서 축소 */
+  margin-bottom: 0.4rem;
+  /* 0.5rem에서 축소 */
   color: var(--accent-color);
   display: flex;
   align-items: center;
@@ -1126,13 +1133,18 @@ section h2 {
 
 @media (max-width: 768px) {
   .modal-overlay {
-    padding: 1.5rem 1rem; /* 상하좌우 여백 추가 */
-    align-items: center; /* 하단 밀착에서 중앙 정렬로 변경하여 여백 확보 */
+    padding: 1.5rem 1rem;
+    /* 상하좌우 여백 추가 */
+    align-items: center;
+    /* 하단 밀착에서 중앙 정렬로 변경하여 여백 확보 */
   }
 
   .modal-content-wrapper {
-    max-height: 90vh; /* 높이 약간 조절 */
-    border-radius: 24px; /* 4면 모두 둥글게 유지 */
+    max-height: 90dvh;
+    /* 높이 약간 조절 */
+    border-radius: 24px;
+    /* 4면 모두 둥글게 유지 */
+    padding-bottom: env(safe-area-inset-bottom);
     width: 100%;
     margin: 0 auto;
   }

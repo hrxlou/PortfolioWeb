@@ -39,9 +39,9 @@ const ProjectCard = memo(({ id, tags, index, image, link, onOpen }: ProjectCardP
         ease: [0.16, 1, 0.3, 1] 
       } : { duration: 0 }}
       whileHover={!isPC ? {} : { 
-        y: -15, 
+        y: -10, 
         scale: 1.02,
-        transition: { type: "spring", stiffness: 300, damping: 15 } 
+        transition: { type: "spring", stiffness: 450, damping: 20 } 
       }}
       style={{ cursor: 'pointer' }}
       onClick={onOpen}

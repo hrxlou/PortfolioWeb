@@ -45,7 +45,11 @@ const Skills = memo(() => {
                   delay: 0.15 + (index * 0.1),
                   ease: "easeOut"
                 } : { duration: 0 }}
-                whileHover={!isPC ? {} : { y: -10, scale: 1.02 }}
+                whileHover={!isPC ? {} : { 
+                  y: -8, 
+                  scale: 1.02,
+                  transition: { type: "spring", stiffness: 450, damping: 20 }
+                }}
               >                <h3 className="skill-category">
                   {t(`skills.categories.${categoryKey}`)}
                 </h3>

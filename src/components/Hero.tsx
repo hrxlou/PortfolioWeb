@@ -65,9 +65,9 @@ const Hero = () => {
                 ease: "easeOut"
               } : { duration: 0 }}
               whileHover={!isPC ? {} : { 
-                scale: 1.08, 
-                y: -8,
-                transition: { type: "spring", stiffness: 400, damping: 10 } 
+                scale: 1.05, 
+                y: -5,
+                transition: { type: "spring", stiffness: 500, damping: 15 } 
               }}
               whileTap={{ scale: 0.95 }}
             >
