@@ -10,15 +10,17 @@ interface NavbarProps {
 const Navbar = ({ onNavClick, theme }: NavbarProps) => {
   const { t } = useTranslation();
 
-  // 초기 상태를 안전하게 시작 (flicker 방지)
-  const [isMobile, setIsMobile] = useState<boolean>(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
+
+    handleResize();
+    handleScroll();
+    setIsMounted(true); // 마운트 완료 시점을 명시적으로 관리
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleScroll);
@@ -58,21 +60,16 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
         backdropFilter: isBarMode ? blurEffect : 'none',
         borderBottom: isBarMode ? `1px solid ${glassBorder}` : 'none',
         boxShadow: isBarMode ? shadowEffect : 'none',
-        opacity: isMounted ? 1 : 0, // 마운트 전에는 숨김
+        opacity: isMounted ? 1 : 0,
+        visibility: isMounted ? 'visible' : 'hidden',
       }}
     >
       <div className="container nav-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <motion.a
-          href="#hero"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isMounted ? 1 : 0 }}
-          transition={{ duration: 0.5 }}
-          className="gradient-text nav-logo"
-        >
+        <div className="gradient-text nav-logo">
           Hyun's Space
-        </motion.a>
+        </div>
 
-        <motion.div
+        <div
           className="nav-menu"
           style={{
             display: 'flex',
@@ -86,11 +83,14 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
             WebkitBackdropFilter: isBarMode ? 'none' : blurEffect,
             backdropFilter: isBarMode ? 'none' : blurEffect,
             boxShadow: isBarMode ? 'none' : shadowEffect,
+            opacity: isMounted ? 1 : 0,
           }}
-          initial={{ opacity: 0, scale: isMobile ? 0.95 : 1 }}
-          animate={{ opacity: isMounted ? 1 : 0, scale: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
         >
+          {navLinks.map((item) => (
+            <a
+              key={item.name}
+              href={`#${item.id}`}
+...
           {navLinks.map((item) => (
             <a
               key={item.name}

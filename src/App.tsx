@@ -32,23 +32,20 @@ function MainContent({ theme, toggleTheme }: { theme: 'dark' | 'light', toggleTh
         theme={theme} 
         onNavClick={() => {}}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={language}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
-            <Hero />
-            <div id="featured">
-              <FeaturedProject onOpenProject={handleOpenProject} />
-            </div>
-            <Skills />
-            <PortfolioGrid onOpenProject={handleOpenProject} />
-            <Contact />
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          key={language}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <Hero />
+          <div id="featured">
+            <FeaturedProject onOpenProject={handleOpenProject} />
+          </div>
+          <Skills />
+          <PortfolioGrid onOpenProject={handleOpenProject} />
+          <Contact />
+        </motion.div>
 
         <ProjectModal 
           project={selectedProject}
