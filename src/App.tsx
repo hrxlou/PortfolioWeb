@@ -8,6 +8,8 @@ import Layout from './components/Layout';
 
 function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
+    if (savedTheme) return savedTheme;
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
       return 'light';
     }
@@ -16,29 +18,26 @@ function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
   }, [theme]);
-
-  const [navKey, setNavKey] = useState(0);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
-  const handleNavClick = () => setNavKey(prev => prev + 1);
-
   return (
     <Layout 
       theme={theme} 
       toggleTheme={toggleTheme} 
-      onNavClick={handleNavClick}
+      onNavClick={() => {}}
     >
-      <Hero navKey={navKey} />
+      <Hero />
       <div id="featured">
-        <FeaturedProject navKey={navKey} />
+        <FeaturedProject />
       </div>
-      <Skills navKey={navKey} />
-      <PortfolioGrid navKey={navKey} />
-      <Contact navKey={navKey} />
+      <Skills />
+      <PortfolioGrid />
+      <Contact />
     </Layout>
   );
 }

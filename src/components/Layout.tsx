@@ -6,13 +6,13 @@ interface LayoutProps {
   children: ReactNode;
   theme: 'dark' | 'light';
   toggleTheme: () => void;
-  onNavClick: () => void;
+  onNavClick?: () => void;
 }
 
 const Layout = ({ children, theme, toggleTheme, onNavClick }: LayoutProps) => {
   return (
     <main className="main-layout">
-      <Navbar onNavClick={onNavClick} />
+      <Navbar onNavClick={onNavClick || (() => {})} />
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       
       {/* Background decoration */}

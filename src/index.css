@@ -94,8 +94,17 @@ nav {
   left: 0;
   right: 0;
   z-index: 100;
-  padding: var(--nav-padding) 0;
-  transition: all 0.3s ease;
+  padding: 1.2rem 0;
+  transition: var(--transition-smooth);
+}
+
+.fixed-nav.scrolled {
+  padding: 0.7rem 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .nav-container {
@@ -113,8 +122,7 @@ nav {
 
 .nav-menu {
   gap: 1.5rem;
-  background: var(--glass-bg) !important;
-  /* 변수 사용 및 우선순위 확보 */
+  background: var(--glass-bg);
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid var(--glass-border);
@@ -122,48 +130,20 @@ nav {
   padding: 0.4rem 1.25rem;
   display: flex;
   border-radius: 100px;
-  /* 알약 모양 유지 */
+  transition: var(--transition-smooth);
+}
+
+.fixed-nav.scrolled .nav-menu {
+  background: transparent;
+  border-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
 }
 
 .nav-link {
   font-size: 0.85rem;
   font-weight: 500;
-}
-
-/* PC 스타일: 스크롤 시 상단 바 디자인 */
-@media (min-width: 769px) {
-  .nav-scrolled {
-    --nav-padding: 0.7rem;
-
-    /* 1. 배경색 자체를 반투명하게 설정 (0.75 = 85% 불투명) */
-    background: rgba(255, 255, 255, 0.75) !important;
-
-    /* 2. 블러 효과 (접두사 포함, !important로 강제 적용) */
-    backdrop-filter: blur(12px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
-
-    border-bottom: 1px solid var(--glass-border);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  /* 다크모드 대응 (필요한 경우) */
-  [data-theme='dark'] .nav-scrolled,
-  body.dark .nav-scrolled {
-    background: rgba(10, 10, 10, 0.75) !important;
-  }
-
-  /* 3. 메뉴 캡슐의 중복 배경 제거 */
-  .nav-scrolled .nav-menu {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-}
-
-.nav-scrolled {
-  --nav-padding: 0.7rem;
 }
 
 [data-theme='light'] {
