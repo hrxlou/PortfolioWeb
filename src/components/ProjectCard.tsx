@@ -15,8 +15,8 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ id, tags, index, image, link, onOpen }: ProjectCardProps & { id: string }) => {
   const { t } = useTranslation();
-  // 동기적 초기화
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  // 즉시 화면 크기 감지하여 초기 렌더링 깜빡임 방지
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -27,9 +27,9 @@ const ProjectCard = ({ id, tags, index, image, link, onOpen }: ProjectCardProps 
   return (
     <motion.div
       className="glass card-inner"
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: isMobile ? 0 : 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: isMobile ? "0px" : "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.05, ease: "easeOut" }}
       whileHover={isMobile ? {} : { y: -10, transition: { duration: 0.2 } }}
       style={{ cursor: 'pointer' }}

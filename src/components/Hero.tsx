@@ -9,8 +9,8 @@ const Hero = () => {
   const { social } = portfolioData;
   const { t } = useTranslation();
   
-  // 첫 렌더링 시점에 즉시 화면 크기를 확인하여 깜빡임(Double render) 방지
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  // 첫 렌더링 시점에 즉시 화면 크기를 확인하여 깜빡임 방지
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -18,12 +18,19 @@ const Hero = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const scrollToNext = () => {
+    const nextSection = document.getElementById('featured');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="hero" className="container hero-section">
       <motion.div
-        initial={{ opacity: 0, y: isMobile ? 0 : 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       >
         <div className="hero-content">
           <p className="gradient-text hero-tagline">
@@ -38,8 +45,6 @@ const Hero = () => {
           </p>
         </div>
 
-        {/* 3. 소셜 링크 */}
-        {/* 3. 소셜 링크: 기존 위치 그대로 유지 (AnimatePresence 밖이 아닌, 원래의 flex flow 안에 배치) */}
         <div className="social-links">
           {social.map((item, index) => (
             <motion.a
@@ -48,11 +53,10 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="glass social-item"
-              initial={{ opacity: 0, y: isMobile ? 5 : 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 + (index * (isMobile ? 0.05 : 0.1)), duration: 0.6 }}
-              whileHover={isMobile ? {} : { scale: 1.05 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 + (index * 0.1) }}
+              whileHover={isMobile ? {} : { scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
             >
               <SocialIcon name={item.name} />
@@ -62,16 +66,19 @@ const Hero = () => {
         </div>
       </motion.div>
 
-      {/* 스크롤 인디케이터 */}
-      <motion.div
+      {/* 스크롤 인디케이터: 클릭 기능 추가 */}
+      <motion.button
         className="scroll-indicator"
+        onClick={scrollToNext}
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 0.6, 0] }}
-        transition={{ delay: 2, duration: 2, repeat: Infinity }}
+        transition={{ delay: 2.5, duration: 2, repeat: Infinity }}
+        style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+        aria-label="Scroll to featured projects"
       >
         <span className="scroll-text">Scroll</span>
-        <ChevronDown size={20} />
-      </motion.div>
+        <ChevronDown size={24} />
+      </motion.button>
     </section>
   );
 };
