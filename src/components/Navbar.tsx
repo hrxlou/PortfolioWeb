@@ -8,6 +8,10 @@ interface NavbarProps {
 const Navbar = ({ onNavClick }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
 
+  // [IMPORTANT] Vercel 배포 시 CSS Minification 이슈로 인해 
+  // 내비게이션의 투명도 및 블러(backdropFilter) 스타일이 유실되는 현상이 있습니다.
+  // 이를 방지하기 위해 스타일을 반드시 아래와 같이 '인라인(Inline Style)'으로 유지해야 합니다.
+  // 성능 최적화나 리팩토링 목적으로 스타일을 CSS 클래스로 절대 옮기지 마세요.
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
