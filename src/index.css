@@ -8,6 +8,8 @@ html, body, #root {
   min-height: 100dvh;
   min-height: -webkit-fill-available;
   background-color: var(--bg-color) !important;
+  /* 스크롤 바운스 시 시스템 배경색 노출 방지 */
+  background: var(--bg-color) !important;
 }
 
 html {
@@ -166,7 +168,7 @@ nav {
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: var(--bg-color) !important;
   color: var(--text-primary);
   font-family: var(--font-main);
   line-height: 1.6;
@@ -175,8 +177,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
   touch-action: manipulation;
-  /* 모바일 스크롤 바운스 시 흰 배경 방지 */
-  overscroll-behavior-y: none;
+  /* 모바일 스크롤 바운스 시 기본색 노출 허용 (시스템 바 동기화용) */
+  overscroll-behavior-y: auto;
 }
 
 /* 애니메이션 성능 최적화 */
