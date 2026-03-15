@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import Navbar from './Navbar';
 import ThemeToggle from './ThemeToggle';
+import BackgroundEffects from './BackgroundEffects';
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,13 +13,10 @@ interface LayoutProps {
 const Layout = ({ children, theme, toggleTheme, onNavClick }: LayoutProps) => {
   return (
     <main className="main-layout">
+      <BackgroundEffects theme={theme} />
       <Navbar theme={theme} onNavClick={onNavClick || (() => {})} />
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       
-      {/* Background decoration */}
-      <div className={`bg-decoration top-right ${theme}`} />
-      <div className={`bg-decoration bottom-left ${theme}`} />
-
       <div className="content-relative">
         {children}
       </div>

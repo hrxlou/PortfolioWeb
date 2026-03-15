@@ -39,38 +39,54 @@ html {
   z-index: 1;
 }
 
-.bg-decoration {
+.bg-effects-container {
   position: fixed;
-  width: 50vw;
-  height: 50vw;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
+  background-color: var(--bg-color);
 }
 
-.bg-decoration.top-right {
-  top: -10%;
-  right: -10%;
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-.bg-decoration.bottom-left {
-  bottom: -10%;
-  left: -10%;
+.mesh-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+  mix-blend-mode: soft-light;
+  will-change: transform;
 }
 
-.bg-decoration.top-right.dark {
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+[data-theme='light'] .mesh-blob {
+  opacity: 0.08;
 }
 
-.bg-decoration.top-right.light {
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.04) 0%, rgba(0, 0, 0, 0) 70%);
+.spotlight {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(50px);
+  mix-blend-mode: screen;
 }
 
-.bg-decoration.bottom-left.dark {
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
-}
-
-.bg-decoration.bottom-left.light {
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.03) 0%, rgba(0, 0, 0, 0) 70%);
+[data-theme='light'] .spotlight {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, rgba(99, 102, 241, 0) 70%);
+  mix-blend-mode: multiply;
 }
 
 .footer {
