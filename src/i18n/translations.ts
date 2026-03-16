@@ -12,7 +12,12 @@ export const translations = {
     personal: {
       name: '김현'
     },
+    common: {
+      name: '김현 포트폴리오',
+    },
     hero: {
+      title: '안녕하세요, 김현입니다 | 포트폴리오',
+      subtitle: '새로운 도전을 즐기는 대학생 개발자 김현의 포트폴리오입니다.',
       greeting: '안녕하세요,',
       iam: '저는 ',
       suffix: '입니다.',
@@ -99,7 +104,12 @@ export const translations = {
     personal: {
       name: 'Hyun Kim'
     },
+    common: {
+      name: 'Hyun Kim Portfolio',
+    },
     hero: {
+      title: 'Hello, I am Hyun Kim | Portfolio',
+      subtitle: 'Portfolio of Hyun Kim, a student developer who enjoys new challenges.',
       greeting: 'Hello,',
       iam: 'I am ',
       suffix: '.',
