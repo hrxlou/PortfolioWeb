@@ -70,12 +70,13 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
             display: 'flex',
             alignItems: 'center',
             gap: isMobile ? '0.8rem' : '1.5rem',
-            // 트랜지션 대상 명시 및 부드러운 타이밍 적용
-            transition: 'padding 0.5s cubic-bezier(0.4, 0, 0.2, 1), background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease',
-            padding: isBarMode ? '0.4rem 0' : '0.5rem 1.1rem',
-            borderRadius: '100px', // 스크롤 시에도 둥근 끝 유지 (가로 띠 형태여도 양 끝은 둥글게)
+            // 트랜지션 타이밍을 최적화하고 투명도 위주로 제어
+            transition: 'padding 0.4s ease, background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease',
+            padding: isBarMode ? '0' : '0.5rem 1.1rem',
+            borderRadius: '100px', // 고정하여 전환 시 직사각형 현상 방지 (어차피 투명해짐)
             background: isBarMode ? 'transparent' : glassBg,
-            border: isBarMode ? '1px solid transparent' : `1px solid ${glassBorder}`,
+            // 'none' 대신 'transparent'를 사용하여 테두리 사라짐을 부드럽게 처리
+            border: `1px solid ${isBarMode ? 'transparent' : glassBorder}`,
             WebkitBackdropFilter: isBarMode ? 'none' : blurEffect,
             backdropFilter: isBarMode ? 'none' : blurEffect,
             boxShadow: isBarMode ? 'none' : shadowEffect,
@@ -87,14 +88,7 @@ const Navbar = ({ onNavClick, theme }: NavbarProps) => {
               href={`#${item.id}`}
               onClick={() => onNavClick(item.id)}
               className="nav-link"
-              style={{ 
-                fontSize: isMobile ? '0.85rem' : '1rem', 
-                fontWeight: 500,
-                // 링크 간격 미세 조정
-                padding: '0.4rem 0.6rem',
-                borderRadius: '50px',
-                transition: 'background 0.3s ease'
-              }}
+              style={{ fontSize: isMobile ? '0.85rem' : '1rem', fontWeight: 500 }}
             >
               {item.name}
             </a>
