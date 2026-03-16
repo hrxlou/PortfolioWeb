@@ -1,4 +1,5 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense, useMemo } from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Hero from './components/Hero';
 import Layout from './components/Layout';
 import { TranslationProvider, useTranslation, TranslationContext, getTranslation } from './i18n';
@@ -19,14 +20,8 @@ const ProjectModal = lazy(() => import('./components/ProjectModal'));
 
 type Project = typeof portfolioData.projects[0];
 
-/**
- * LanguageContainer는 AnimatePresence의 퇴장 애니메이션이 진행되는 동안 
- * 해당 컴포넌트 트리의 언어 상태를 고정시켜 깜빡임을 방지합니다.
- */
 function LanguageContainer({ language, children }: { language: string, children: React.ReactNode }) {
   const { setLanguage } = useTranslation();
-
-  // 전달받은 language props에 수동으로 바인딩된 t 함수를 생성하여 하위 컴포넌트에 주입
   const frozenT = (path: string) => getTranslation(language as any, path);
 
   return (
@@ -37,15 +32,62 @@ function LanguageContainer({ language, children }: { language: string, children:
 }
 
 function MainContent({ theme, toggleTheme }: { theme: 'dark' | 'light', toggleTheme: () => void }) {
-  const { language } = useTranslation();
+  const { language, t } = useTranslation();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  // URL 파라미터 기반 프로젝트 모달 동기화
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const projectId = params.get('project');
+    if (projectId) {
+      const project = portfolioData.projects.find(p => p.id === projectId);
+      if (project) setSelectedProject(project);
+    }
+
+    const handlePopState = () => {
+      const newParams = new URLSearchParams(window.location.search);
+      const newProjectId = newParams.get('project');
+      if (newProjectId) {
+        const project = portfolioData.projects.find(p => p.id === newProjectId);
+        setSelectedProject(project || null);
+      } else {
+        setSelectedProject(null);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const handleOpenProject = (project: Project) => {
     setSelectedProject(project);
+    const url = new URL(window.location.href);
+    url.searchParams.set('project', project.id);
+    window.history.pushState({}, '', url);
   };
+
+  const handleCloseProject = () => {
+    setSelectedProject(null);
+    const url = new URL(window.location.href);
+    url.searchParams.delete('project');
+    window.history.pushState({}, '', url);
+  };
+
+  const seoTitle = useMemo(() => {
+    if (selectedProject) {
+      const projectTitle = language === 'ko' ? selectedProject.title : selectedProject.titleEn;
+      return `${projectTitle} | ${t('common.name')}`;
+    }
+    return t('hero.title');
+  }, [selectedProject, language, t]);
 
   return (
     <>
+      <Helmet>
+        <title>{seoTitle}</title>
+        <meta name="description" content={t('hero.subtitle')} />
+        <html lang={language} />
+      </Helmet>
       <ScrollProgressBar />
       <CustomCursor theme={theme} />
       <FloatingControls theme={theme} toggleTheme={toggleTheme} />
@@ -80,7 +122,7 @@ function MainContent({ theme, toggleTheme }: { theme: 'dark' | 'light', toggleTh
           <ProjectModal
             project={selectedProject}
             isOpen={!!selectedProject}
-            onClose={() => setSelectedProject(null)}
+            onClose={handleCloseProject}
           />
         </Suspense>
       </Layout>
@@ -90,14 +132,15 @@ function MainContent({ theme, toggleTheme }: { theme: 'dark' | 'light', toggleTh
 
 function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      return 'light';
+    if (typeof window !== 'undefined') {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        return 'light';
+      }
     }
     return 'dark';
   });
 
   useEffect(() => {
-    // Scroll to top only on initial mount (refresh)
     window.scrollTo(0, 0);
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
@@ -121,9 +164,11 @@ function App() {
   };
 
   return (
-    <TranslationProvider>
-      <MainContent theme={theme} toggleTheme={toggleTheme} />
-    </TranslationProvider>
+    <HelmetProvider>
+      <TranslationProvider>
+        <MainContent theme={theme} toggleTheme={toggleTheme} />
+      </TranslationProvider>
+    </HelmetProvider>
   );
 }
 

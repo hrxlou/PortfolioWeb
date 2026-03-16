@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, Send } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 import { useTranslation } from '../i18n';
+import GithubStatsWidget from './GithubStatsWidget';
 
 const Contact = () => {
   const { email } = portfolioData.personal;
@@ -39,6 +40,7 @@ const Contact = () => {
         <div className="contact-header">
           <h2><span className="gradient-text">{t('contact.title')}</span> {t('contact.span')}</h2>
           <p>{t('contact.message')}</p>
+          <GithubStatsWidget username="hrxlou" />
         </div>
 
         <div className="contact-grid">

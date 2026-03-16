@@ -14,6 +14,7 @@ interface Social {
 interface Project {
   id: string;
   title: string;
+  titleEn: string;
   label?: string;
   image: string;
   problem?: string;
@@ -64,6 +65,7 @@ export const portfolioData: PortfolioData = {
     {
       id: "family",
       title: "가족 소통을 위한 웹",
+      titleEn: "Web for Family Communication",
       label: "Personal Project",
       image: "/featuredprojectmain.png",
       problem: "가족들이 단순한 채팅방 이상으로 서로의 일상과 계획, 미래에 대해 기록할 수 있는 웹 소통 공간을 만들고자 했습니다.",
@@ -89,6 +91,7 @@ export const portfolioData: PortfolioData = {
     {
       id: "empty",
       title: "솔직히 아직 한게 없습니다",
+      titleEn: "To be honest, I haven't done anything yet",
       image: "/mywork1.png",
       description: "열심히 살게요 😅",
       tags: ["인생_어렵다"],
@@ -102,6 +105,7 @@ export const portfolioData: PortfolioData = {
     {
       id: "arsenal",
       title: "아스날 FC 화이팅",
+      titleEn: "Go Arsenal FC",
       image: "/mywork1.png",
       description: "제발 우승하자",
       tags: ["요케레스 30골 기원 1일차"],
